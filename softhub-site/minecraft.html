@@ -1,0 +1,175 @@
+<!-- SoftHub — Minecraft cheats -->
+<!-- promt by @mopscode -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minecraft — читы | SoftHub</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+  :root {
+    --bg: #050506; --panel: #0e0e10; --panel-2: #141416;
+    --border: #1c1c1f; --border-hi: #26262a;
+    --red: #ff2b3b; --text: #f0f0f2;
+    --text-dim: #8a8a92; --text-dimmer: #5a5a62;
+  }
+  html, body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", system-ui, sans-serif; min-height: 100vh; line-height: 1.5; }
+  a { color: inherit; text-decoration: none; }
+
+  header { position: sticky; top: 0; z-index: 100; background: rgba(5,5,6,0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+  .head-inner { max-width: 1200px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; display: flex; align-items: center; }
+  .logo .soft { color: #fff; }
+  .logo .hub { color: var(--red); }
+  .head-nav { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--text-dim); }
+  .head-nav a:hover { color: var(--text); transition: color .18s; }
+  .head-icons { display: flex; align-items: center; gap: 18px; color: var(--text-dim); }
+  .head-icons a { display: flex; align-items: center; }
+  .head-icons a:hover { color: var(--text); transition: color .18s; }
+  .head-icons svg { width: 20px; height: 20px; }
+
+  main { max-width: 1000px; margin: 0 auto; padding: 40px 20px 80px; }
+
+  .back-link { display: inline-flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text-dim); margin-bottom: 28px; transition: color .18s; }
+  .back-link:hover { color: var(--red); }
+
+  .page-head { margin-bottom: 36px; }
+  .page-head .tag-label { color: var(--red); font-size: 12.5px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; }
+  .page-head h1 { font-size: clamp(26px, 5vw, 40px); font-weight: 900; letter-spacing: -1px; margin-bottom: 12px; }
+  .page-head p { color: var(--text-dim); font-size: 15px; max-width: 600px; }
+
+  .cheat-grid { display: grid; grid-template-columns: 1fr; gap: 14px; }
+  @media (min-width: 700px) { .cheat-grid { grid-template-columns: 1fr 1fr; } }
+
+  .cheat-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 14px;
+    padding: 22px; display: flex; flex-direction: column; gap: 10px;
+    cursor: pointer; transition: all .2s ease; color: inherit;
+  }
+  .cheat-card:hover { border-color: rgba(255,43,59,0.5); transform: translateY(-3px); box-shadow: 0 14px 34px -14px rgba(255,43,59,0.45); }
+  .cheat-title { font-size: 16px; font-weight: 800; letter-spacing: -0.2px; }
+  .cheat-desc { font-size: 13px; color: var(--text-dim); line-height: 1.55; flex: 1; }
+  .cheat-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; }
+  .cheat-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--red); }
+  .cheat-arrow { color: var(--text-dimmer); font-size: 18px; transition: color .2s, transform .2s; }
+  .cheat-card:hover .cheat-arrow { color: var(--red); transform: translateX(3px); }
+
+  footer { border-top: 1px solid var(--border); padding: 26px 20px; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .footer-left { font-size: 13px; color: var(--text-dimmer); display: flex; align-items: center; gap: 10px; }
+  .footer-left .brand { font-weight: 900; color: var(--text); }
+  .footer-left .brand span { color: var(--red); }
+  .footer-links { display: flex; gap: 22px; font-size: 13px; color: var(--text-dim); }
+  .footer-links a:hover { color: var(--red); transition: color .18s; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <a href="index.html" class="logo"><span class="soft">Soft</span><span class="hub">Hub</span></a>
+    <nav class="head-nav">
+      <a href="contact.html">Связь</a>
+      <a href="index.html#faq">FAQ</a>
+    </nav>
+    <div class="head-icons">
+      <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <a href="index.html" class="back-link">← Назад на главную</a>
+
+  <div class="page-head">
+    <div class="tag-label">/ Minecraft</div>
+    <h1>Читы для Minecraft</h1>
+    <p>Все доступные читы для Minecraft. Клик по карточке — откроется страница с ссылкой на скачивание.</p>
+  </div>
+
+  <div class="cheat-grid">
+
+    <!-- ============================================
+         КАРТОЧКА ЧИТА №1
+         Меняешь: data-url на ссылку, data-name и .cheat-title на название
+         ============================================ -->
+    <a href="redirect.html" class="cheat-card" data-url="https://example.com/minecraft-cheat-1" data-name="Minecraft Cheat 1">
+      <div class="cheat-title">Minecraft Cheat 1</div>
+      <div class="cheat-desc">Краткое описание чита — что умеет, какие фичи. Клик открывает страницу с ссылкой.</div>
+      <div class="cheat-foot">
+        <span class="cheat-tag">Download</span>
+        <span class="cheat-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- ============================================
+         КАРТОЧКА ЧИТА №2
+         ============================================ -->
+    <a href="redirect.html" class="cheat-card" data-url="https://example.com/minecraft-cheat-2" data-name="Minecraft Cheat 2">
+      <div class="cheat-title">Minecraft Cheat 2</div>
+      <div class="cheat-desc">Краткое описание чита — что умеет, какие фичи. Клик открывает страницу с ссылкой.</div>
+      <div class="cheat-foot">
+        <span class="cheat-tag">Download</span>
+        <span class="cheat-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- ============================================
+         КАРТОЧКА ЧИТА №3
+         ============================================ -->
+    <a href="redirect.html" class="cheat-card" data-url="https://example.com/minecraft-cheat-3" data-name="Minecraft Cheat 3">
+      <div class="cheat-title">Minecraft Cheat 3</div>
+      <div class="cheat-desc">Краткое описание чита — что умеет, какие фичи. Клик открывает страницу с ссылкой.</div>
+      <div class="cheat-foot">
+        <span class="cheat-tag">Download</span>
+        <span class="cheat-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- ============================================
+         КАРТОЧКА ЧИТА №4
+         ============================================ -->
+    <a href="redirect.html" class="cheat-card" data-url="https://example.com/minecraft-cheat-4" data-name="Minecraft Cheat 4">
+      <div class="cheat-title">Minecraft Cheat 4</div>
+      <div class="cheat-desc">Краткое описание чита — что умеет, какие фичи. Клик открывает страницу с ссылкой.</div>
+      <div class="cheat-foot">
+        <span class="cheat-tag">Download</span>
+        <span class="cheat-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      <span class="brand">Soft<span>Hub</span></span>
+      <span>© 2026 — все права защищены</span>
+    </div>
+    <div class="footer-links">
+      <a href="contact.html">Связь</a>
+      <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank">YouTube</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // При клике на карточку — переход на redirect.html с параметрами u (url) и n (name)
+  document.querySelectorAll('.cheat-card').forEach(function (card) {
+    card.addEventListener('click', function (e) {
+      e.preventDefault();
+      var url = this.getAttribute('data-url') || '';
+      var name = this.getAttribute('data-name') || 'Чит';
+      window.location.href = 'redirect.html?u=' + encodeURIComponent(url) + '&n=' + encodeURIComponent(name);
+    });
+  });
+</script>
+
+</body>
+</html>
