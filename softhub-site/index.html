@@ -54,14 +54,9 @@
     max-width: 1200px; margin: 0 auto; padding: 14px 20px;
     display: flex; align-items: center; justify-content: space-between; gap: 16px;
   }
-  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; display: flex; align-items: center; }
   .logo .soft { color: #fff; }
   .logo .hub { color: var(--red); }
-  .logo::before {
-    content: "S"; width: 26px; height: 26px; background: var(--red); color: #000;
-    border-radius: 7px; display: flex; align-items: center; justify-content: center;
-    font-weight: 900; font-size: 16px; margin-right: 4px;
-  }
   .head-nav { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--text-dim); }
   .head-nav a:hover { color: var(--text); transition: color .18s; }
   .head-icons { display: flex; align-items: center; gap: 18px; color: var(--text-dim); }
@@ -163,67 +158,37 @@
   .faq-list { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
 
   .faq-item {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    overflow: hidden;
-    transition: border-color .2s ease;
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 14px; overflow: hidden; transition: border-color .2s ease;
   }
   .faq-item:hover { border-color: var(--border-hi); }
   .faq-item[open] { border-color: rgba(255,43,59,0.5); }
 
   .faq-item summary {
-    list-style: none;
-    cursor: pointer;
-    padding: 20px 22px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    font-size: 15.5px;
-    font-weight: 700;
-    color: var(--text);
+    list-style: none; cursor: pointer; padding: 20px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; font-size: 15.5px; font-weight: 700; color: var(--text);
     user-select: none;
   }
   .faq-item summary::-webkit-details-marker { display: none; }
   .faq-item summary::marker { display: none; content: ""; }
 
   .faq-item .plus {
-    flex-shrink: 0;
-    width: 24px; height: 24px;
-    border-radius: 50%;
-    background: var(--panel-2);
-    border: 1px solid var(--border-hi);
+    flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%;
+    background: var(--panel-2); border: 1px solid var(--border-hi);
     display: flex; align-items: center; justify-content: center;
-    font-size: 16px; font-weight: 800;
-    color: var(--red);
-    transition: transform .25s ease, background .25s ease;
-    line-height: 1;
+    font-size: 16px; font-weight: 800; color: var(--red);
+    transition: transform .25s ease, background .25s ease; line-height: 1;
   }
   .faq-item[open] .plus {
-    transform: rotate(45deg);
-    background: var(--red);
-    color: #000;
-    border-color: var(--red);
+    transform: rotate(45deg); background: var(--red); color: #000; border-color: var(--red);
   }
 
   .faq-item .answer {
-    padding: 0 22px 22px;
-    font-size: 14px;
-    color: var(--text-dim);
-    line-height: 1.65;
-    border-top: 1px solid transparent;
-    margin-top: -4px;
+    padding: 0 22px 22px; font-size: 14px; color: var(--text-dim);
+    line-height: 1.65; border-top: 1px solid transparent; margin-top: -4px;
   }
-  .faq-item[open] .answer {
-    border-top-color: var(--border);
-    padding-top: 16px;
-  }
-  .faq-item .answer a {
-    color: var(--red);
-    border-bottom: 1px dashed rgba(255,43,59,0.4);
-  }
-  .faq-item .answer a:hover { border-bottom-style: solid; }
+  .faq-item[open] .answer { border-top-color: var(--border); padding-top: 16px; }
 
   /* ---------- FOOTER ---------- */
   footer { border-top: 1px solid var(--border); padding: 28px 20px; }
@@ -255,11 +220,11 @@
     <div class="head-inner">
       <a href="/" class="logo"><span class="soft">Soft</span><span class="hub">Hub</span></a>
       <nav class="head-nav">
-        <a href="#games">Игры</a>
+        <a href="contact.html">Связь</a>
         <a href="#faq">FAQ</a>
       </nav>
       <div class="head-icons">
-        <a href="#" aria-label="YouTube">
+        <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank" aria-label="YouTube">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
         </a>
       </div>
@@ -268,7 +233,6 @@
 
   <main>
 
-    <!-- HERO -->
     <section class="hero">
       <div class="hero-inner">
         <div class="badge"><span class="dot"></span>Топовые читы для популярных игр</div>
@@ -276,12 +240,11 @@
         <p>У нас вы найдёте топовые читы для популярных игр, которые помогут вам доминировать. Все читы проверены и регулярно обновляются.</p>
         <div class="btn-row">
           <a href="#games" class="btn btn-red">Выбрать игру</a>
-          <a href="#faq" class="btn btn-ghost">Частые вопросы</a>
+          <a href="contact.html" class="btn btn-ghost">Связь</a>
         </div>
       </div>
     </section>
 
-    <!-- GAMES -->
     <section id="games">
       <div class="container">
         <div class="section-head">
@@ -338,7 +301,6 @@
       </div>
     </section>
 
-    <!-- FAQ -->
     <section class="faq-section" id="faq">
       <div class="faq-head">
         <div class="tag-label">/ FAQ</div>
@@ -348,63 +310,33 @@
       <div class="faq-list">
 
         <details class="faq-item">
-          <summary>
-            Что такое SoftHub?
-            <span class="plus">+</span>
-          </summary>
-          <div class="answer">
-            SoftHub — это платформа, где собраны читы и скрипты для популярных игр: Minecraft, Roblox и других. Все файлы проверены и обновляются, чтобы работать на актуальных версиях игр.
-          </div>
+          <summary>Что такое SoftHub?<span class="plus">+</span></summary>
+          <div class="answer">SoftHub — это платформа, где собраны читы и скрипты для популярных игр: Minecraft, Roblox и других. Все файлы проверены и обновляются, чтобы работать на актуальных версиях игр.</div>
         </details>
 
         <details class="faq-item">
-          <summary>
-            Это безопасно? Могут ли забанить?
-            <span class="plus">+</span>
-          </summary>
-          <div class="answer">
-            Любой чит — это риск. Мы стараемся делать всё, чтобы обход античитов работал, но 100% гарантии никто дать не может. Рекомендуем использовать на тестовых аккаунтах и не заходить с основного.
-          </div>
+          <summary>Это безопасно? Могут ли забанить?<span class="plus">+</span></summary>
+          <div class="answer">Любой чит — это риск. Мы стараемся делать всё, чтобы обход античитов работал, но 100% гарантии никто дать не может. Рекомендуем использовать на тестовых аккаунтах и не заходить с основного.</div>
         </details>
 
         <details class="faq-item">
-          <summary>
-            Как скачать и установить чит?
-            <span class="plus">+</span>
-          </summary>
-          <div class="answer">
-            Выбираешь игру, заходишь на страницу, скачиваешь файл. Дальше — по инструкции внутри. Обычно это загрузка через экзекьютор или установка в папку игры.
-          </div>
+          <summary>Как скачать и установить чит?<span class="plus">+</span></summary>
+          <div class="answer">Выбираешь игру, заходишь на страницу, скачиваешь файл. Дальше — по инструкции внутри. Обычно это загрузка через экзекьютор или установка в папку игры.</div>
         </details>
 
         <details class="faq-item">
-          <summary>
-            Бесплатно ли это?
-            <span class="plus">+</span>
-          </summary>
-          <div class="answer">
-            Да, весь контент на сайте бесплатный. Мы не берём денег за доступ к читам и скриптам.
-          </div>
+          <summary>Бесплатно ли это?<span class="plus">+</span></summary>
+          <div class="answer">Да, весь контент на сайте бесплатный. Мы не берём денег за доступ к читам и скриптам.</div>
         </details>
 
         <details class="faq-item">
-          <summary>
-            Читы не работают, что делать?
-            <span class="plus">+</span>
-          </summary>
-          <div class="answer">
-            Скорее всего игра обновилась и античит изменился. Мы стараемся обновлять файлы как можно быстрее. Проверь, что скачал последнюю версию и что игра поддерживается.
-          </div>
+          <summary>Читы не работают, что делать?<span class="plus">+</span></summary>
+          <div class="answer">Скорее всего игра обновилась и античит изменился. Мы стараемся обновлять файлы как можно быстрее. Проверь, что скачал последнюю версию и что игра поддерживается.</div>
         </details>
 
         <details class="faq-item">
-          <summary>
-            Как связаться с нами?
-            <span class="plus">+</span>
-          </summary>
-          <div class="answer">
-            Discord или Telegram в футере сайта. Там же можно написать о баге, попросить обновление или предложить игру, которую стоит добавить.
-          </div>
+          <summary>Как связаться с нами?<span class="plus">+</span></summary>
+          <div class="answer">Discord или Telegram — на странице <a href="contact.html">Связь</a>. Там же можно написать о баге, попросить обновление или предложить игру, которую стоит добавить.</div>
         </details>
 
       </div>
@@ -419,9 +351,8 @@
         <span>© 2026 — все права защищены</span>
       </div>
       <div class="footer-links">
-        <a href="#">Discord</a>
-        <a href="#">YouTube</a>
-        <a href="#">Telegram</a>
+        <a href="contact.html">Связь</a>
+        <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank">YouTube</a>
       </div>
     </div>
   </footer>
