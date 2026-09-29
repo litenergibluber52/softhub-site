@@ -70,7 +70,7 @@
   .head-icons svg { width: 20px; height: 20px; }
 
   /* ---------- HERO ---------- */
-  .hero { position: relative; padding: 70px 20px 50px; overflow: hidden; }
+  .hero { position: relative; padding: 70px 20px 60px; overflow: hidden; }
   .hero::before {
     content: ""; position: absolute; inset: 0;
     background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255,43,59,0.09), transparent 70%);
@@ -99,25 +99,6 @@
 
   section { padding: 0 20px; }
   .container { max-width: 1200px; margin: 0 auto; }
-
-  /* ---------- FEATURED ---------- */
-  .featured { background: var(--panel); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-bottom: 60px; }
-  .featured-body { padding: 26px; display: grid; grid-template-columns: 1fr; gap: 22px; }
-  @media (min-width: 800px) { .featured-body { grid-template-columns: 1.1fr 1fr; align-items: center; padding: 34px; } }
-  .featured h2 { font-size: 26px; font-weight: 900; margin-bottom: 14px; letter-spacing: -0.5px; }
-  .featured p { color: var(--text-dim); font-size: 14.5px; margin-bottom: 22px; }
-  .video-thumb {
-    aspect-ratio: 16 / 9; background: linear-gradient(135deg, #16161a, #0a0a0c);
-    border: 1px solid var(--border); border-radius: 14px;
-    display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
-  }
-  .video-thumb::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(255,43,59,0.15), transparent 65%); }
-  .video-thumb .play {
-    position: relative; z-index: 1; width: 58px; height: 58px; border-radius: 50%;
-    background: var(--red); display: flex; align-items: center; justify-content: center;
-  }
-  .video-thumb .play::after { content: ""; border-left: 16px solid #000; border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 5px; }
-  .new-tag { position: absolute; top: 12px; right: 12px; background: var(--red); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.6px; padding: 5px 10px; border-radius: 7px; z-index: 2; }
 
   /* ---------- GAMES ---------- */
   .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; gap: 16px; flex-wrap: wrap; }
@@ -173,8 +154,79 @@
   }
   .cheat-count { font-size: 12px; color: var(--text-dimmer); font-weight: 600; }
 
+  /* ---------- FAQ ---------- */
+  .faq-section { padding: 0 20px 80px; }
+  .faq-head { text-align: center; margin-bottom: 30px; }
+  .faq-head .tag-label { color: var(--red); font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; }
+  .faq-head h2 { font-size: clamp(24px, 4vw, 34px); font-weight: 900; letter-spacing: -0.8px; }
+
+  .faq-list { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+
+  .faq-item {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color .2s ease;
+  }
+  .faq-item:hover { border-color: var(--border-hi); }
+  .faq-item[open] { border-color: rgba(255,43,59,0.5); }
+
+  .faq-item summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 20px 22px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 15.5px;
+    font-weight: 700;
+    color: var(--text);
+    user-select: none;
+  }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::marker { display: none; content: ""; }
+
+  .faq-item .plus {
+    flex-shrink: 0;
+    width: 24px; height: 24px;
+    border-radius: 50%;
+    background: var(--panel-2);
+    border: 1px solid var(--border-hi);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 800;
+    color: var(--red);
+    transition: transform .25s ease, background .25s ease;
+    line-height: 1;
+  }
+  .faq-item[open] .plus {
+    transform: rotate(45deg);
+    background: var(--red);
+    color: #000;
+    border-color: var(--red);
+  }
+
+  .faq-item .answer {
+    padding: 0 22px 22px;
+    font-size: 14px;
+    color: var(--text-dim);
+    line-height: 1.65;
+    border-top: 1px solid transparent;
+    margin-top: -4px;
+  }
+  .faq-item[open] .answer {
+    border-top-color: var(--border);
+    padding-top: 16px;
+  }
+  .faq-item .answer a {
+    color: var(--red);
+    border-bottom: 1px dashed rgba(255,43,59,0.4);
+  }
+  .faq-item .answer a:hover { border-bottom-style: solid; }
+
   /* ---------- FOOTER ---------- */
-  footer { border-top: 1px solid var(--border); padding: 28px 20px; margin-top: auto; }
+  footer { border-top: 1px solid var(--border); padding: 28px 20px; }
   .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   .footer-left { font-size: 13px; color: var(--text-dimmer); display: flex; align-items: center; gap: 10px; }
   .footer-left .brand { font-weight: 900; color: var(--text); }
@@ -196,7 +248,7 @@
   </div>
 </div>
 
-<!-- ========== SITE (скрыт до прохождения) ========== -->
+<!-- ========== SITE ========== -->
 <div id="site" style="display:none;">
 
   <header>
@@ -204,15 +256,11 @@
       <a href="/" class="logo"><span class="soft">Soft</span><span class="hub">Hub</span></a>
       <nav class="head-nav">
         <a href="#games">Игры</a>
-        <a href="#">Топ</a>
-        <a href="#">FAQ</a>
+        <a href="#faq">FAQ</a>
       </nav>
       <div class="head-icons">
         <a href="#" aria-label="YouTube">
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
-        </a>
-        <a href="#" aria-label="Menu">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </a>
       </div>
     </div>
@@ -220,6 +268,7 @@
 
   <main>
 
+    <!-- HERO -->
     <section class="hero">
       <div class="hero-inner">
         <div class="badge"><span class="dot"></span>Топовые читы для популярных игр</div>
@@ -227,29 +276,12 @@
         <p>У нас вы найдёте топовые читы для популярных игр, которые помогут вам доминировать. Все читы проверены и регулярно обновляются.</p>
         <div class="btn-row">
           <a href="#games" class="btn btn-red">Выбрать игру</a>
-          <a href="#" class="btn btn-ghost">FunTime события</a>
+          <a href="#faq" class="btn btn-ghost">Частые вопросы</a>
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container">
-        <div class="featured">
-          <div class="featured-body">
-            <div>
-              <h2>Лучшие читы 2026</h2>
-              <p>Смотрите обзор на наш топовый чит в видеоролике. Разбираем функции, показываем в деле, объясняем что к чему.</p>
-              <a href="#" class="btn btn-red">Смотреть</a>
-            </div>
-            <div class="video-thumb">
-              <span class="new-tag">NEW</span>
-              <div class="play"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
+    <!-- GAMES -->
     <section id="games">
       <div class="container">
         <div class="section-head">
@@ -259,7 +291,6 @@
 
         <div class="games-grid" id="grid">
 
-          <!-- Minecraft -->
           <a href="#" class="game-card" data-title="minecraft hvh">
             <div class="game-cover" style="background: linear-gradient(135deg, #2d5016 0%, #0f2a08 60%, #050505 100%);">
               <span class="pop-badge">Популярно</span>
@@ -275,7 +306,6 @@
             </div>
           </a>
 
-          <!-- Minecraft Packs -->
           <a href="#" class="game-card" data-title="minecraft ресурспаки ресурспак packs">
             <div class="game-cover" style="background: linear-gradient(135deg, #2d5016 0%, #0f2a08 60%, #050505 100%);">
               <span class="logo-text">MINECRAFT PACKS</span>
@@ -290,7 +320,6 @@
             </div>
           </a>
 
-          <!-- Roblox -->
           <a href="#" class="game-card" data-title="roblox">
             <div class="game-cover" style="background: linear-gradient(135deg, #6d1319 0%, #2a0508 60%, #050505 100%);">
               <span class="logo-text">ROBLOX</span>
@@ -306,6 +335,78 @@
           </a>
 
         </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section" id="faq">
+      <div class="faq-head">
+        <div class="tag-label">/ FAQ</div>
+        <h2>Частые вопросы</h2>
+      </div>
+
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>
+            Что такое SoftHub?
+            <span class="plus">+</span>
+          </summary>
+          <div class="answer">
+            SoftHub — это платформа, где собраны читы и скрипты для популярных игр: Minecraft, Roblox и других. Все файлы проверены и обновляются, чтобы работать на актуальных версиях игр.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            Это безопасно? Могут ли забанить?
+            <span class="plus">+</span>
+          </summary>
+          <div class="answer">
+            Любой чит — это риск. Мы стараемся делать всё, чтобы обход античитов работал, но 100% гарантии никто дать не может. Рекомендуем использовать на тестовых аккаунтах и не заходить с основного.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            Как скачать и установить чит?
+            <span class="plus">+</span>
+          </summary>
+          <div class="answer">
+            Выбираешь игру, заходишь на страницу, скачиваешь файл. Дальше — по инструкции внутри. Обычно это загрузка через экзекьютор или установка в папку игры.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            Бесплатно ли это?
+            <span class="plus">+</span>
+          </summary>
+          <div class="answer">
+            Да, весь контент на сайте бесплатный. Мы не берём денег за доступ к читам и скриптам.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            Читы не работают, что делать?
+            <span class="plus">+</span>
+          </summary>
+          <div class="answer">
+            Скорее всего игра обновилась и античит изменился. Мы стараемся обновлять файлы как можно быстрее. Проверь, что скачал последнюю версию и что игра поддерживается.
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>
+            Как связаться с нами?
+            <span class="plus">+</span>
+          </summary>
+          <div class="answer">
+            Discord или Telegram в футере сайта. Там же можно написать о баге, попросить обновление или предложить игру, которую стоит добавить.
+          </div>
+        </details>
+
       </div>
     </section>
 
@@ -328,10 +429,8 @@
 </div>
 
 <script>
-  // ==============================
   // TURNSTILE BOT GATE
-  // ==============================
-  // Тестовый ключ Cloudflare. Замени на свой, когда получишь на dash.cloudflare.com.
+  // Тестовый ключ Cloudflare. Замени на свой с dash.cloudflare.com
   var TURNSTILE_SITE_KEY = "1x00000000000000000000AA";
 
   function showSite() {
@@ -345,16 +444,13 @@
       localStorage.setItem('softhub_human_ts', Date.now().toString());
     } catch (e) {}
     showSite();
-    console.log('Turnstile OK, token length:', token ? token.length : 0);
   }
 
   function onTurnstileError(code) {
     console.warn('Turnstile error:', code);
-    // Пропускаем, чтобы юзер не застрял если виджет не прогрузился.
     showSite();
   }
 
-  // Если проверялся меньше 24 часов назад — сразу пускаем.
   (function () {
     try {
       var ts = parseInt(localStorage.getItem('softhub_human_ts') || '0', 10);
@@ -365,16 +461,9 @@
     } catch (e) {}
   })();
 
-  // Рендер виджета после загрузки скрипта Turnstile.
   window.addEventListener('load', function () {
     if (document.getElementById('site').style.display === 'block') return;
-
-    if (typeof turnstile === 'undefined') {
-      console.warn('Turnstile не загрузился');
-      onTurnstileError('script_not_loaded');
-      return;
-    }
-
+    if (typeof turnstile === 'undefined') { onTurnstileError('script_not_loaded'); return; }
     turnstile.render('#turnstile-slot', {
       sitekey: TURNSTILE_SITE_KEY,
       theme: 'dark',
@@ -383,12 +472,9 @@
     });
   });
 
-  // ==============================
   // ПОИСК ПО ИГРАМ
-  // ==============================
   var search = document.getElementById('search');
   var grid = document.getElementById('grid');
-
   if (search && grid) {
     search.addEventListener('input', function () {
       var q = this.value.toLowerCase().trim();
