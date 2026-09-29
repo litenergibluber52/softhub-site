@@ -1,0 +1,405 @@
+<!-- SoftHub — cheats landing + Turnstile bot gate -->
+<!-- promt by @mopscode -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SoftHub — читы для популярных игр</title>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+  :root {
+    --bg: #050506; --panel: #0e0e10; --panel-2: #141416;
+    --border: #1c1c1f; --border-hi: #26262a;
+    --red: #ff2b3b; --text: #f0f0f2;
+    --text-dim: #8a8a92; --text-dimmer: #5a5a62;
+  }
+  html, body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", system-ui, sans-serif;
+    min-height: 100vh; line-height: 1.5;
+  }
+  a { color: inherit; text-decoration: none; }
+
+  /* ---------- BOT GATE ---------- */
+  #bot-gate {
+    position: fixed; inset: 0; background: #050506; z-index: 9999;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  #bot-gate.hidden { display: none; }
+  .gate-box {
+    background: var(--panel); border: 1px solid var(--border);
+    border-radius: 18px; padding: 36px 28px; max-width: 380px; width: 100%;
+    text-align: center;
+  }
+  .gate-icon {
+    width: 54px; height: 54px; margin: 0 auto 18px; background: var(--red);
+    border-radius: 14px; display: flex; align-items: center; justify-content: center;
+    font-size: 26px; font-weight: 900; color: #000;
+  }
+  .gate-box h2 { font-size: 20px; font-weight: 900; margin-bottom: 8px; letter-spacing: -0.3px; }
+  .gate-box p { font-size: 13.5px; color: var(--text-dim); margin-bottom: 24px; }
+  #turnstile-slot { display: flex; justify-content: center; min-height: 65px; margin-bottom: 16px; }
+  .gate-note { font-size: 11px; color: var(--text-dimmer); margin-top: 8px; }
+
+  /* ---------- HEADER ---------- */
+  header {
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(5, 5, 6, 0.85);
+    backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+  }
+  .head-inner {
+    max-width: 1200px; margin: 0 auto; padding: 14px 20px;
+    display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  }
+  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; display: flex; align-items: center; gap: 8px; }
+  .logo .soft { color: #fff; }
+  .logo .hub { color: var(--red); }
+  .logo::before {
+    content: "S"; width: 26px; height: 26px; background: var(--red); color: #000;
+    border-radius: 7px; display: flex; align-items: center; justify-content: center;
+    font-weight: 900; font-size: 16px; margin-right: 4px;
+  }
+  .head-nav { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--text-dim); }
+  .head-nav a:hover { color: var(--text); transition: color .18s; }
+  .head-icons { display: flex; align-items: center; gap: 18px; color: var(--text-dim); }
+  .head-icons a { display: flex; align-items: center; }
+  .head-icons a:hover { color: var(--text); transition: color .18s; }
+  .head-icons svg { width: 20px; height: 20px; }
+
+  /* ---------- HERO ---------- */
+  .hero { position: relative; padding: 70px 20px 50px; overflow: hidden; }
+  .hero::before {
+    content: ""; position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255,43,59,0.09), transparent 70%);
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; max-width: 780px; margin: 0 auto; text-align: center; }
+  .badge {
+    display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px;
+    border: 1px solid var(--border); border-radius: 999px; background: var(--panel);
+    font-size: 12.5px; color: var(--text-dim); margin-bottom: 26px;
+  }
+  .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); box-shadow: 0 0 10px var(--red); }
+  .hero h1 { font-size: clamp(30px, 6vw, 54px); font-weight: 900; line-height: 1.05; letter-spacing: -1.2px; margin-bottom: 22px; }
+  .hero h1 .accent { color: var(--red); text-shadow: 0 0 30px rgba(255,43,59,0.4); }
+  .hero p { font-size: clamp(14px, 2.2vw, 17px); color: var(--text-dim); max-width: 540px; margin: 0 auto 34px; }
+  .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block; padding: 14px 26px; border-radius: 11px;
+    font-weight: 700; font-size: 15px; transition: all .18s ease;
+    cursor: pointer; border: none; white-space: nowrap;
+  }
+  .btn-red { background: var(--red); color: #000; }
+  .btn-red:hover { background: #ff4150; box-shadow: 0 0 28px rgba(255,43,59,0.55); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border-hi); }
+  .btn-ghost:hover { border-color: var(--red); color: var(--red); transform: translateY(-1px); }
+
+  section { padding: 0 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
+
+  /* ---------- FEATURED ---------- */
+  .featured { background: var(--panel); border: 1px solid var(--border); border-radius: 20px; overflow: hidden; margin-bottom: 60px; }
+  .featured-body { padding: 26px; display: grid; grid-template-columns: 1fr; gap: 22px; }
+  @media (min-width: 800px) { .featured-body { grid-template-columns: 1.1fr 1fr; align-items: center; padding: 34px; } }
+  .featured h2 { font-size: 26px; font-weight: 900; margin-bottom: 14px; letter-spacing: -0.5px; }
+  .featured p { color: var(--text-dim); font-size: 14.5px; margin-bottom: 22px; }
+  .video-thumb {
+    aspect-ratio: 16 / 9; background: linear-gradient(135deg, #16161a, #0a0a0c);
+    border: 1px solid var(--border); border-radius: 14px;
+    display: flex; align-items: center; justify-content: center; position: relative; overflow: hidden;
+  }
+  .video-thumb::after { content: ""; position: absolute; inset: 0; background: radial-gradient(circle at 50% 50%, rgba(255,43,59,0.15), transparent 65%); }
+  .video-thumb .play {
+    position: relative; z-index: 1; width: 58px; height: 58px; border-radius: 50%;
+    background: var(--red); display: flex; align-items: center; justify-content: center;
+  }
+  .video-thumb .play::after { content: ""; border-left: 16px solid #000; border-top: 10px solid transparent; border-bottom: 10px solid transparent; margin-left: 5px; }
+  .new-tag { position: absolute; top: 12px; right: 12px; background: var(--red); color: #fff; font-size: 11px; font-weight: 800; letter-spacing: 0.6px; padding: 5px 10px; border-radius: 7px; z-index: 2; }
+
+  /* ---------- GAMES ---------- */
+  .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; gap: 16px; flex-wrap: wrap; }
+  .section-head h2 { font-size: clamp(22px, 3.5vw, 30px); font-weight: 900; letter-spacing: -0.6px; }
+  .search-box {
+    background: var(--panel); border: 1px solid var(--border); color: var(--text);
+    font-size: 14px; padding: 10px 16px; border-radius: 10px; outline: none;
+    min-width: 200px; transition: border-color .18s;
+  }
+  .search-box:focus { border-color: var(--red); }
+  .search-box::placeholder { color: var(--text-dimmer); }
+
+  .games-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding-bottom: 70px; }
+  @media (min-width: 640px) { .games-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) { .games-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .game-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 18px;
+    overflow: hidden; transition: all .22s ease; cursor: pointer;
+    display: flex; flex-direction: column; color: inherit;
+  }
+  .game-card:hover {
+    border-color: rgba(255,43,59,0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -16px rgba(255,43,59,0.45);
+  }
+  .game-cover {
+    aspect-ratio: 16 / 10; position: relative; overflow: hidden;
+    display: flex; align-items: center; justify-content: center;
+    background-size: cover; background-position: center;
+  }
+  .game-cover .logo-text {
+    font-size: clamp(20px, 4vw, 30px); font-weight: 900; letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.9); text-shadow: 0 2px 18px rgba(0,0,0,0.6);
+    padding: 0 14px; text-align: center;
+  }
+  .pop-badge {
+    position: absolute; top: 12px; left: 12px; background: var(--red); color: #fff;
+    font-size: 10.5px; font-weight: 800; letter-spacing: 0.6px;
+    padding: 5px 10px; border-radius: 6px; text-transform: uppercase;
+  }
+  .game-body { padding: 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .game-title { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
+  .game-desc {
+    font-size: 13px; color: var(--text-dim); line-height: 1.5; flex: 1;
+    display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden;
+  }
+  .game-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; gap: 10px; }
+  .tag {
+    background: var(--panel-2); color: var(--text-dim);
+    font-size: 11.5px; font-weight: 600; padding: 5px 10px; border-radius: 7px;
+    border: 1px solid var(--border);
+  }
+  .cheat-count { font-size: 12px; color: var(--text-dimmer); font-weight: 600; }
+
+  /* ---------- FOOTER ---------- */
+  footer { border-top: 1px solid var(--border); padding: 28px 20px; margin-top: auto; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .footer-left { font-size: 13px; color: var(--text-dimmer); display: flex; align-items: center; gap: 10px; }
+  .footer-left .brand { font-weight: 900; color: var(--text); }
+  .footer-left .brand span { color: var(--red); }
+  .footer-links { display: flex; gap: 22px; font-size: 13px; color: var(--text-dim); }
+  .footer-links a:hover { color: var(--red); transition: color .18s; }
+</style>
+</head>
+<body>
+
+<!-- ========== BOT GATE ========== -->
+<div id="bot-gate">
+  <div class="gate-box">
+    <div class="gate-icon">S</div>
+    <h2>Проверка на бота</h2>
+    <p>Подтверди, что ты человек, чтобы продолжить</p>
+    <div id="turnstile-slot"></div>
+    <div class="gate-note">Защищено Cloudflare Turnstile</div>
+  </div>
+</div>
+
+<!-- ========== SITE (скрыт до прохождения) ========== -->
+<div id="site" style="display:none;">
+
+  <header>
+    <div class="head-inner">
+      <a href="/" class="logo"><span class="soft">Soft</span><span class="hub">Hub</span></a>
+      <nav class="head-nav">
+        <a href="#games">Игры</a>
+        <a href="#">Топ</a>
+        <a href="#">FAQ</a>
+      </nav>
+      <div class="head-icons">
+        <a href="#" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <a href="#" aria-label="Menu">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="badge"><span class="dot"></span>Топовые читы для популярных игр</div>
+        <h1>Скачать лучшие <span class="accent">читы</span><br>для твоих любимых игр</h1>
+        <p>У нас вы найдёте топовые читы для популярных игр, которые помогут вам доминировать. Все читы проверены и регулярно обновляются.</p>
+        <div class="btn-row">
+          <a href="#games" class="btn btn-red">Выбрать игру</a>
+          <a href="#" class="btn btn-ghost">FunTime события</a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container">
+        <div class="featured">
+          <div class="featured-body">
+            <div>
+              <h2>Лучшие читы 2026</h2>
+              <p>Смотрите обзор на наш топовый чит в видеоролике. Разбираем функции, показываем в деле, объясняем что к чему.</p>
+              <a href="#" class="btn btn-red">Смотреть</a>
+            </div>
+            <div class="video-thumb">
+              <span class="new-tag">NEW</span>
+              <div class="play"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="games">
+      <div class="container">
+        <div class="section-head">
+          <h2>Все игры</h2>
+          <input class="search-box" id="search" type="text" placeholder="Поиск игры...">
+        </div>
+
+        <div class="games-grid" id="grid">
+
+          <!-- Minecraft -->
+          <a href="#" class="game-card" data-title="minecraft hvh">
+            <div class="game-cover" style="background: linear-gradient(135deg, #2d5016 0%, #0f2a08 60%, #050505 100%);">
+              <span class="pop-badge">Популярно</span>
+              <span class="logo-text">MINECRAFT</span>
+            </div>
+            <div class="game-body">
+              <div class="game-title">Minecraft HVH</div>
+              <div class="game-desc">Minecraft — это приключенческая игра-песочница, у которой нет сюжета и ограничений в пространстве.</div>
+              <div class="game-foot">
+                <span class="tag">Песочница</span>
+                <span class="cheat-count">60 читов</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Minecraft Packs -->
+          <a href="#" class="game-card" data-title="minecraft ресурспаки ресурспак packs">
+            <div class="game-cover" style="background: linear-gradient(135deg, #2d5016 0%, #0f2a08 60%, #050505 100%);">
+              <span class="logo-text">MINECRAFT PACKS</span>
+            </div>
+            <div class="game-body">
+              <div class="game-title">Minecraft (Ресурспаки)</div>
+              <div class="game-desc">Ресурспак — набор файлов для Minecraft, который меняет текстуры, звуки и интерфейс игры.</div>
+              <div class="game-foot">
+                <span class="tag">Visual</span>
+                <span class="cheat-count">122 читов</span>
+              </div>
+            </div>
+          </a>
+
+          <!-- Roblox -->
+          <a href="#" class="game-card" data-title="roblox">
+            <div class="game-cover" style="background: linear-gradient(135deg, #6d1319 0%, #2a0508 60%, #050505 100%);">
+              <span class="logo-text">ROBLOX</span>
+            </div>
+            <div class="game-body">
+              <div class="game-title">Roblox</div>
+              <div class="game-desc">Мультиплеерная метавселенная с мини-играми и собственной студией — тысячи игр от сообщества.</div>
+              <div class="game-foot">
+                <span class="tag">Песочница</span>
+                <span class="cheat-count">24 читов</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="brand">Soft<span>Hub</span></span>
+        <span>© 2026 — все права защищены</span>
+      </div>
+      <div class="footer-links">
+        <a href="#">Discord</a>
+        <a href="#">YouTube</a>
+        <a href="#">Telegram</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // ==============================
+  // TURNSTILE BOT GATE
+  // ==============================
+  // Тестовый ключ Cloudflare. Замени на свой, когда получишь на dash.cloudflare.com.
+  var TURNSTILE_SITE_KEY = "1x00000000000000000000AA";
+
+  function showSite() {
+    document.getElementById('bot-gate').classList.add('hidden');
+    document.getElementById('site').style.display = 'block';
+  }
+
+  function onTurnstileSuccess(token) {
+    try {
+      localStorage.setItem('softhub_human', '1');
+      localStorage.setItem('softhub_human_ts', Date.now().toString());
+    } catch (e) {}
+    showSite();
+    console.log('Turnstile OK, token length:', token ? token.length : 0);
+  }
+
+  function onTurnstileError(code) {
+    console.warn('Turnstile error:', code);
+    // Пропускаем, чтобы юзер не застрял если виджет не прогрузился.
+    showSite();
+  }
+
+  // Если проверялся меньше 24 часов назад — сразу пускаем.
+  (function () {
+    try {
+      var ts = parseInt(localStorage.getItem('softhub_human_ts') || '0', 10);
+      var age = Date.now() - ts;
+      if (localStorage.getItem('softhub_human') === '1' && age < 24 * 60 * 60 * 1000) {
+        showSite();
+      }
+    } catch (e) {}
+  })();
+
+  // Рендер виджета после загрузки скрипта Turnstile.
+  window.addEventListener('load', function () {
+    if (document.getElementById('site').style.display === 'block') return;
+
+    if (typeof turnstile === 'undefined') {
+      console.warn('Turnstile не загрузился');
+      onTurnstileError('script_not_loaded');
+      return;
+    }
+
+    turnstile.render('#turnstile-slot', {
+      sitekey: TURNSTILE_SITE_KEY,
+      theme: 'dark',
+      callback: onTurnstileSuccess,
+      'error-callback': onTurnstileError,
+    });
+  });
+
+  // ==============================
+  // ПОИСК ПО ИГРАМ
+  // ==============================
+  var search = document.getElementById('search');
+  var grid = document.getElementById('grid');
+
+  if (search && grid) {
+    search.addEventListener('input', function () {
+      var q = this.value.toLowerCase().trim();
+      var cards = grid.querySelectorAll('.game-card');
+      for (var i = 0; i < cards.length; i++) {
+        var title = (cards[i].getAttribute('data-title') || '').toLowerCase();
+        cards[i].style.display = (q === '' || title.indexOf(q) !== -1) ? '' : 'none';
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
