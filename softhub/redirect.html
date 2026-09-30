@@ -34,8 +34,20 @@
   main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 50px 20px; }
   .card { max-width: 460px; width: 100%; background: var(--panel); border: 1px solid var(--border); border-radius: 20px; padding: 40px 30px; }
   .card-head { text-align: center; margin-bottom: 30px; }
-  .card-icon { width: 56px; height: 56px; margin: 0 auto 18px; background: var(--red); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
+  .card-icon {
+    width: 56px; height: 56px; margin: 0 auto 18px;
+    background: var(--red); border-radius: 15px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; transition: width .25s ease, height .25s ease, background .25s ease, border-radius .25s ease;
+  }
   .card-icon svg { width: 28px; height: 28px; fill: #000; }
+  .card-icon.has-image {
+    width: 100%; height: 180px;
+    background: var(--panel-2);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+  }
+  .card-image { width: 100%; height: 100%; object-fit: cover; display: block; }
   .card h1 { font-size: 22px; font-weight: 900; letter-spacing: -0.4px; margin-bottom: 8px; }
   .card .sub { font-size: 13.5px; color: var(--text-dim); }
 
@@ -64,7 +76,7 @@
   <div class="card">
 
     <div class="card-head">
-      <div class="card-icon">
+      <div class="card-icon" id="card-icon">
         <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm1.07-3.75l-.07.05v.7h-2v-1.2l1.07-1.13c.62-.63 1.04-1.05 1.04-1.67 0-.7-.62-1.2-1.5-1.2-.86 0-1.4.53-1.5 1.4l-1.98-.2c.15-1.9 1.66-3.1 3.48-3.1 1.9 0 3.5 1.13 3.5 3.1 0 1.4-1.05 2.1-2.04 3.05z"/></svg>
       </div>
       <h1 id="cheat-name">Ссылка на скачивание</h1>
@@ -90,11 +102,29 @@
 <script>
   (function () {
     var params = new URLSearchParams(window.location.search);
-    var url = params.get('u') || '';
+    var url  = params.get('u') || '';
     var name = params.get('n') || 'Ссылка на скачивание';
+    var img  = params.get('i') || '';
 
     var nameEl = document.getElementById('cheat-name');
-    var goBtn = document.getElementById('go-btn');
+    var goBtn  = document.getElementById('go-btn');
+    var iconEl = document.getElementById('card-icon');
+
+    // Если передан скрин — подменяем иконку "?" на картинку.
+    // onerror возвращает иконку-заглушку, если файл не найден или битый.
+    if (img) {
+      iconEl.classList.add('has-image');
+      iconEl.innerHTML = '';
+      var im = document.createElement('img');
+      im.className = 'card-image';
+      im.alt = '';
+      im.onerror = function () {
+        iconEl.classList.remove('has-image');
+        iconEl.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm1.07-3.75l-.07.05v.7h-2v-1.2l1.07-1.13c.62-.63 1.04-1.05 1.04-1.67 0-.7-.62-1.2-1.5-1.2-.86 0-1.4.53-1.5 1.4l-1.98-.2c.15-1.9 1.66-3.1 3.48-3.1 1.9 0 3.5 1.13 3.5 3.1 0 1.4-1.05 2.1-2.04 3.05z"/></svg>';
+      };
+      im.src = img;
+      iconEl.appendChild(im);
+    }
 
     if (!url) {
       nameEl.textContent = 'Ссылка не указана';
