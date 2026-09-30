@@ -19,9 +19,17 @@
 
   header { position: sticky; top: 0; z-index: 100; background: rgba(5,5,6,0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
   .head-inner { max-width: 1200px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
-  .logo { font-size: 22px; font-weight: 900; letter-spacing: -0.5px; display: flex; align-items: center; }
-  .logo .soft { color: #fff; }
-  .logo .hub { color: var(--red); }
+  .logo {
+    font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
+    display: flex; align-items: center;
+    background: linear-gradient(90deg, #ffffff 0%, #ff2b3b 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+  .logo .soft,
+  .logo .hub { color: transparent; }
   .head-nav { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--text-dim); }
   .head-nav a:hover { color: var(--text); transition: color .18s; }
   .head-icons { display: flex; align-items: center; gap: 18px; color: var(--text-dim); }
