@@ -101,7 +101,10 @@
 
   <div class="cheat-grid">
    <!-- Карточка №1 — Nurpukan, со скрином -->
-    <a href="redirect.html" class="cheat-card" data-url="https://direct-link.net/9802332/Exf4RXMwqFU2" data-name="Nurpukan 1.21.11" data-image="n1">
+<a href="redirect.html" class="cheat-card"
+   data-url="https://direct-link.net/9802332/Exf4RXMwqFU2"
+   data-name="Nurpukan 1.21.11"
+   data-image="n1.png">
       <div class="cheat-title">Nurpukan 1.21.11</div>
       <div class="cheat-desc">Кряк Nurpukan 1.21.11. Полностью работает. 1. Установить кряк. 2. Распаковать его на рабочий стол. 3. Запустить .bat файл.</div>
       <div class="cheat-foot">
@@ -224,13 +227,17 @@
 </footer>
 
 <script>
-  // При клике на карточку — переход на redirect.html с параметрами u (url) и n (name)
+  // При клике на карточку — переход на redirect.html с параметрами:
+  //   u = url, n = name, i = image (опционально)
   document.querySelectorAll('.cheat-card').forEach(function (card) {
     card.addEventListener('click', function (e) {
       e.preventDefault();
-      var url = this.getAttribute('data-url') || '';
+      var url  = this.getAttribute('data-url') || '';
       var name = this.getAttribute('data-name') || 'Чит';
-      window.location.href = 'redirect.html?u=' + encodeURIComponent(url) + '&n=' + encodeURIComponent(name);
+      var img  = this.getAttribute('data-image') || '';
+      var redirect = 'redirect.html?u=' + encodeURIComponent(url) + '&n=' + encodeURIComponent(name);
+      if (img) redirect += '&i=' + encodeURIComponent(img);
+      window.location.href = redirect;
     });
   });
 </script>
