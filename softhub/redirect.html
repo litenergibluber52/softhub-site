@@ -31,37 +31,22 @@
   .logo .soft,
   .logo .hub { color: transparent; }
 
-  @keyframes softhubFlow {
-    0%   { background-position: 0% 50%; }
-    50%  { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
   main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 50px 20px; }
-  .card { max-width: 560px; width: 100%; background: var(--panel); border: 1px solid var(--border); border-radius: 20px; padding: 36px 30px; }
-  .card-head { text-align: center; margin-bottom: 28px; }
+  .card { max-width: 460px; width: 100%; background: var(--panel); border: 1px solid var(--border); border-radius: 20px; padding: 40px 30px; }
+  .card-head { text-align: center; margin-bottom: 30px; }
   .card-icon { width: 56px; height: 56px; margin: 0 auto 18px; background: var(--red); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
   .card-icon svg { width: 28px; height: 28px; fill: #000; }
   .card h1 { font-size: 22px; font-weight: 900; letter-spacing: -0.4px; margin-bottom: 8px; }
   .card .sub { font-size: 13.5px; color: var(--text-dim); }
 
-  .link-box { background: var(--panel-2); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 22px; }
-  .link-label { font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--red); margin-bottom: 6px; }
-  .link-url { font-size: 13.5px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--text-dim); word-break: break-all; line-height: 1.5; }
-
   .btn-row { display: flex; flex-direction: column; gap: 10px; }
   .btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 24px; border-radius: 12px; font-weight: 700; font-size: 15px; transition: all .18s ease; cursor: pointer; border: none; text-align: center; }
   .btn-go { background: var(--red); color: #000; }
   .btn-go:hover { background: #ff4150; box-shadow: 0 0 28px rgba(255,43,59,0.55); transform: translateY(-1px); }
-  .btn-copy { background: transparent; color: var(--text); border: 1px solid var(--border-hi); }
-  .btn-copy:hover { border-color: var(--red); color: var(--red); }
-  .btn-copy.copied { border-color: #2ecc71; color: #2ecc71; }
 
-  .note { margin-top: 22px; font-size: 12px; color: var(--text-dimmer); text-align: center; line-height: 1.6; }
+  .note { margin-top: 24px; font-size: 12px; color: var(--text-dimmer); text-align: center; line-height: 1.6; }
   .note a { color: var(--text-dim); border-bottom: 1px dashed var(--border-hi); }
   .note a:hover { color: var(--red); border-bottom-style: solid; }
-
-  .error { padding: 20px; text-align: center; color: var(--red); font-size: 14px; }
 
   footer { border-top: 1px solid var(--border); padding: 22px 20px; }
   .footer-inner { max-width: 1200px; margin: 0 auto; font-size: 13px; color: var(--text-dimmer); text-align: center; }
@@ -86,14 +71,8 @@
       <div class="sub">Ты переходишь на внешний ресурс</div>
     </div>
 
-    <div class="link-box">
-      <div class="link-label">Ссылка</div>
-      <div class="link-url" id="cheat-url">—</div>
-    </div>
-
     <div class="btn-row">
       <a href="#" id="go-btn" class="btn btn-go" target="_blank" rel="noopener noreferrer">Перейти к скачиванию</a>
-      <button type="button" id="copy-btn" class="btn btn-copy">Скопировать ссылку</button>
     </div>
 
     <p class="note">
@@ -115,54 +94,17 @@
     var name = params.get('n') || 'Ссылка на скачивание';
 
     var nameEl = document.getElementById('cheat-name');
-    var urlEl = document.getElementById('cheat-url');
     var goBtn = document.getElementById('go-btn');
-    var copyBtn = document.getElementById('copy-btn');
 
     if (!url) {
       nameEl.textContent = 'Ссылка не указана';
-      urlEl.textContent = 'Ничего не передано в параметре u.';
       goBtn.style.opacity = '0.4';
       goBtn.style.pointerEvents = 'none';
-      copyBtn.style.opacity = '0.4';
-      copyBtn.style.pointerEvents = 'none';
       return;
     }
 
     nameEl.textContent = name;
-    urlEl.textContent = url;
     goBtn.href = url;
-
-    copyBtn.addEventListener('click', function () {
-      var originalText = copyBtn.textContent;
-      var showCopied = function () {
-        copyBtn.textContent = '✓ Скопировано';
-        copyBtn.classList.add('copied');
-        setTimeout(function () {
-          copyBtn.textContent = originalText;
-          copyBtn.classList.remove('copied');
-        }, 1800);
-      };
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(url).then(showCopied, function () {
-          fallbackCopy(url, showCopied);
-        });
-      } else {
-        fallbackCopy(url, showCopied);
-      }
-    });
-
-    function fallbackCopy(text, cb) {
-      var ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      try { document.execCommand('copy'); cb(); } catch (e) {}
-      document.body.removeChild(ta);
-    }
   })();
 </script>
 
