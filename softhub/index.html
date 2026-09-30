@@ -1,11 +1,12 @@
-<!-- SoftHub — redirect / exit page -->
+<!-- SoftHub — cheats landing + Turnstile bot gate -->
 <!-- promt by @mopscode -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ссылка — SoftHub</title>
+<title>SoftHub — читы для популярных игр</title>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
   :root {
@@ -14,10 +15,27 @@
     --red: #ff2b3b; --text: #f0f0f2;
     --text-dim: #8a8a92; --text-dimmer: #5a5a62;
   }
-  html, body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", system-ui, sans-serif; min-height: 100vh; line-height: 1.5; display: flex; flex-direction: column; }
+  html { scroll-behavior: smooth; }
+  html, body {
+    background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Inter", system-ui, sans-serif;
+    min-height: 100vh; line-height: 1.5;
+  }
   a { color: inherit; text-decoration: none; }
 
-  header { position: sticky; top: 0; z-index: 100; background: rgba(5,5,6,0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
+  #bot-gate {
+    position: fixed; inset: 0; background: #050506; z-index: 9999;
+    display: flex; align-items: center; justify-content: center; padding: 20px;
+  }
+  #bot-gate.hidden { display: none; }
+  .gate-box { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; padding: 36px 28px; max-width: 380px; width: 100%; text-align: center; }
+  .gate-icon { width: 54px; height: 54px; margin: 0 auto 18px; background: var(--red); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; color: #000; }
+  .gate-box h2 { font-size: 20px; font-weight: 900; margin-bottom: 8px; letter-spacing: -0.3px; }
+  .gate-box p { font-size: 13.5px; color: var(--text-dim); margin-bottom: 24px; }
+  #turnstile-slot { display: flex; justify-content: center; min-height: 65px; margin-bottom: 16px; }
+  .gate-note { font-size: 11px; color: var(--text-dimmer); margin-top: 8px; }
+
+  header { position: sticky; top: 0; z-index: 100; background: rgba(5, 5, 6, 0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
   .head-inner { max-width: 1200px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
   .logo {
     font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
@@ -28,84 +46,260 @@
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
-  .logo .soft,
-  .logo .hub { color: transparent; }
+  .logo .soft, .logo .hub { color: transparent; }
+  .head-nav { display: flex; align-items: center; gap: 26px; font-size: 14px; color: var(--text-dim); }
+  .head-nav a:hover { color: var(--text); transition: color .18s; }
+  .head-icons { display: flex; align-items: center; gap: 18px; color: var(--text-dim); }
+  .head-icons a { display: flex; align-items: center; }
+  .head-icons a:hover { color: var(--text); transition: color .18s; }
+  .head-icons svg { width: 20px; height: 20px; }
 
-  main { flex: 1; display: flex; align-items: center; justify-content: center; padding: 50px 20px; }
-  .card { max-width: 460px; width: 100%; background: var(--panel); border: 1px solid var(--border); border-radius: 20px; padding: 40px 30px; }
-  .card-head { text-align: center; margin-bottom: 30px; }
-  .card-icon { width: 56px; height: 56px; margin: 0 auto 18px; background: var(--red); border-radius: 15px; display: flex; align-items: center; justify-content: center; }
-  .card-icon svg { width: 28px; height: 28px; fill: #000; }
-  .card h1 { font-size: 22px; font-weight: 900; letter-spacing: -0.4px; margin-bottom: 8px; }
-  .card .sub { font-size: 13.5px; color: var(--text-dim); }
+  .hero { position: relative; padding: 70px 20px 60px; overflow: hidden; }
+  .hero::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse 60% 40% at 50% 0%, rgba(255,43,59,0.09), transparent 70%); pointer-events: none; }
+  .hero-inner { position: relative; max-width: 780px; margin: 0 auto; text-align: center; }
+  .badge { display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--panel); font-size: 12.5px; color: var(--text-dim); margin-bottom: 26px; }
+  .badge .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); box-shadow: 0 0 10px var(--red); }
+  .hero h1 { font-size: clamp(30px, 6vw, 54px); font-weight: 900; line-height: 1.05; letter-spacing: -1.2px; margin-bottom: 22px; }
+  .hero h1 .accent { color: var(--red); text-shadow: 0 0 30px rgba(255,43,59,0.4); }
+  .hero p { font-size: clamp(14px, 2.2vw, 17px); color: var(--text-dim); max-width: 540px; margin: 0 auto 34px; }
+  .btn-row { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn { display: inline-block; padding: 14px 26px; border-radius: 11px; font-weight: 700; font-size: 15px; transition: all .18s ease; cursor: pointer; border: none; white-space: nowrap; }
+  .btn-red { background: var(--red); color: #000; }
+  .btn-red:hover { background: #ff4150; box-shadow: 0 0 28px rgba(255,43,59,0.55); transform: translateY(-1px); }
+  .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border-hi); }
+  .btn-ghost:hover { border-color: var(--red); color: var(--red); transform: translateY(-1px); }
 
-  .btn-row { display: flex; flex-direction: column; gap: 10px; }
-  .btn { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 16px 24px; border-radius: 12px; font-weight: 700; font-size: 15px; transition: all .18s ease; cursor: pointer; border: none; text-align: center; }
-  .btn-go { background: var(--red); color: #000; }
-  .btn-go:hover { background: #ff4150; box-shadow: 0 0 28px rgba(255,43,59,0.55); transform: translateY(-1px); }
+  section { padding: 0 20px; }
+  .container { max-width: 1200px; margin: 0 auto; }
 
-  .note { margin-top: 24px; font-size: 12px; color: var(--text-dimmer); text-align: center; line-height: 1.6; }
-  .note a { color: var(--text-dim); border-bottom: 1px dashed var(--border-hi); }
-  .note a:hover { color: var(--red); border-bottom-style: solid; }
+  .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; gap: 16px; flex-wrap: wrap; }
+  .section-head h2 { font-size: clamp(22px, 3.5vw, 30px); font-weight: 900; letter-spacing: -0.6px; }
 
-  footer { border-top: 1px solid var(--border); padding: 22px 20px; }
-  .footer-inner { max-width: 1200px; margin: 0 auto; font-size: 13px; color: var(--text-dimmer); text-align: center; }
+  .games-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding-bottom: 70px; }
+  @media (min-width: 640px) { .games-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) { .games-grid { grid-template-columns: repeat(3, 1fr); } }
+
+  .game-card { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: all .22s ease; cursor: pointer; display: flex; flex-direction: column; color: inherit; }
+  .game-card:hover { border-color: rgba(255,43,59,0.5); transform: translateY(-4px); box-shadow: 0 16px 40px -16px rgba(255,43,59,0.45); }
+  .game-cover { aspect-ratio: 16 / 10; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
+  .game-cover .logo-text { font-size: clamp(20px, 4vw, 30px); font-weight: 900; letter-spacing: 1.5px; color: rgba(255,255,255,0.9); text-shadow: 0 2px 18px rgba(0,0,0,0.6); padding: 0 14px; text-align: center; }
+  .game-body { padding: 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+  .game-title { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
+  .game-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .game-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; gap: 10px; }
+  .tag { background: var(--panel-2); color: var(--text-dim); font-size: 11.5px; font-weight: 600; padding: 5px 10px; border-radius: 7px; border: 1px solid var(--border); }
+
+  .faq-section { padding: 0 20px 80px; }
+  .faq-head { text-align: center; margin-bottom: 30px; }
+  .faq-head .tag-label { color: var(--red); font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; }
+  .faq-head h2 { font-size: clamp(24px, 4vw, 34px); font-weight: 900; letter-spacing: -0.8px; }
+  .faq-list { max-width: 780px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; }
+  .faq-item { background: var(--panel); border: 1px solid var(--border); border-radius: 14px; overflow: hidden; transition: border-color .2s ease; }
+  .faq-item:hover { border-color: var(--border-hi); }
+  .faq-item[open] { border-color: rgba(255,43,59,0.5); }
+  .faq-item summary { list-style: none; cursor: pointer; padding: 20px 22px; display: flex; align-items: center; justify-content: space-between; gap: 16px; font-size: 15.5px; font-weight: 700; color: var(--text); user-select: none; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::marker { display: none; content: ""; }
+  .faq-item .plus { flex-shrink: 0; width: 24px; height: 24px; border-radius: 50%; background: var(--panel-2); border: 1px solid var(--border-hi); display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 800; color: var(--red); transition: transform .25s ease, background .25s ease; line-height: 1; }
+  .faq-item[open] .plus { transform: rotate(45deg); background: var(--red); color: #000; border-color: var(--red); }
+  .faq-item .answer { padding: 0 22px 22px; font-size: 14px; color: var(--text-dim); line-height: 1.65; border-top: 1px solid transparent; margin-top: -4px; }
+  .faq-item[open] .answer { border-top-color: var(--border); padding-top: 16px; }
+  .faq-item .answer a { color: var(--red); border-bottom: 1px dashed rgba(255,43,59,0.4); }
+  .faq-item .answer a:hover { border-bottom-style: solid; }
+
+  footer { border-top: 1px solid var(--border); padding: 28px 20px; }
+  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  .footer-left { font-size: 13px; color: var(--text-dimmer); display: flex; align-items: center; gap: 10px; }
+  .footer-left .brand { font-weight: 900; }
+  .footer-links { display: flex; gap: 22px; font-size: 13px; color: var(--text-dim); }
+  .footer-links a:hover { color: var(--red); transition: color .18s; }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="head-inner">
-    <a href="index.html" class="logo"><span class="soft">Soft</span><span class="hub">Hub</span></a>
+<div id="bot-gate">
+  <div class="gate-box">
+    <div class="gate-icon">S</div>
+    <h2>Проверка на бота</h2>
+    <p>Подтверди, что ты человек, чтобы продолжить</p>
+    <div id="turnstile-slot"></div>
+    <div class="gate-note">Защищено Cloudflare Turnstile</div>
   </div>
-</header>
+</div>
 
-<main>
-  <div class="card">
+<div id="site" style="display:none;">
 
-    <div class="card-head">
-      <div class="card-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm1.07-3.75l-.07.05v.7h-2v-1.2l1.07-1.13c.62-.63 1.04-1.05 1.04-1.67 0-.7-.62-1.2-1.5-1.2-.86 0-1.4.53-1.5 1.4l-1.98-.2c.15-1.9 1.66-3.1 3.48-3.1 1.9 0 3.5 1.13 3.5 3.1 0 1.4-1.05 2.1-2.04 3.05z"/></svg>
+  <header>
+    <div class="head-inner">
+      <a href="/" class="logo"><span class="soft">Soft</span><span class="hub">Hub</span></a>
+      <nav class="head-nav">
+        <a href="contact.html">Связь</a>
+        <a href="#faq">FAQ</a>
+      </nav>
+      <div class="head-icons">
+        <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
       </div>
-      <h1 id="cheat-name">Ссылка на скачивание</h1>
-      <div class="sub">Ты переходишь на внешний ресурс</div>
     </div>
+  </header>
 
-    <div class="btn-row">
-      <a href="#" id="go-btn" class="btn btn-go" target="_blank" rel="noopener noreferrer">Перейти к скачиванию</a>
+  <main>
+
+    <section class="hero">
+      <div class="hero-inner">
+        <div class="badge"><span class="dot"></span>Топовые читы для популярных игр</div>
+        <h1>Скачать лучшие <span class="accent">читы</span><br>для твоих любимых игр</h1>
+        <p>У нас вы найдёте топовые читы для популярных игр, которые помогут вам доминировать. Все читы проверены и регулярно обновляются.</p>
+        <div class="btn-row">
+          <a href="#games" class="btn btn-red">Выбрать игру</a>
+          <a href="contact.html" class="btn btn-ghost">Связь</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="games">
+      <div class="container">
+        <div class="section-head">
+          <h2>Все игры</h2>
+        </div>
+
+        <div class="games-grid" id="grid">
+
+          <a href="minecraft.html" class="game-card">
+            <div class="game-cover" style="background: linear-gradient(135deg, #2d5016 0%, #0f2a08 60%, #050505 100%);">
+              <span class="logo-text">MINECRAFT</span>
+            </div>
+            <div class="game-body">
+              <div class="game-title">Minecraft</div>
+              <div class="game-desc">Minecraft — это приключенческая игра-песочница, у которой нет сюжета и ограничений в пространстве.</div>
+              <div class="game-foot">
+                <span class="tag">Песочница</span>
+              </div>
+            </div>
+          </a>
+
+          <a href="roblox.html" class="game-card">
+            <div class="game-cover" style="background: linear-gradient(135deg, #6d1319 0%, #2a0508 60%, #050505 100%);">
+              <span class="logo-text">ROBLOX</span>
+            </div>
+            <div class="game-body">
+              <div class="game-title">Roblox</div>
+              <div class="game-desc">Мультиплеерная метавселенная с мини-играми и собственной студией — тысячи игр от сообщества.</div>
+              <div class="game-foot">
+                <span class="tag">Песочница</span>
+              </div>
+            </div>
+          </a>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="faq-section" id="faq">
+      <div class="faq-head">
+        <div class="tag-label">/ FAQ</div>
+        <h2>Частые вопросы</h2>
+      </div>
+
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>Что такое SoftHub?<span class="plus">+</span></summary>
+          <div class="answer">SoftHub — это платформа, где собраны читы и скрипты для популярных игр: Minecraft, Roblox и других. Все файлы проверены и обновляются, чтобы работать на актуальных версиях игр.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Это безопасно? Могут ли забанить?<span class="plus">+</span></summary>
+          <div class="answer">Любой чит — это риск. Мы стараемся делать всё, чтобы обход античитов работал, но 100% гарантии никто дать не может. Рекомендуем использовать на тестовых аккаунтах и не заходить с основного.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Как скачать и установить чит?<span class="plus">+</span></summary>
+          <div class="answer">Выбираешь игру, заходишь на страницу, кликаешь на карточку чита, смотришь короткую рекламу для поддержки проекта и получаешь ссылку на скачивание.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Почему есть реклама?<span class="plus">+</span></summary>
+          <div class="answer">Хостинг, домен, файлы, время — всё это чего-то стоит. Реклама — единственный способ для нас держать проект на плаву. Платных подписок и скрытых платежей нет.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Бесплатно ли это?<span class="plus">+</span></summary>
+          <div class="answer">Да, весь контент на сайте бесплатный. Платить ничего не нужно — только просмотреть короткую рекламу перед скачиванием.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Читы не работают, что делать?<span class="plus">+</span></summary>
+          <div class="answer">Скорее всего игра обновилась и античит изменился. Мы стараемся обновлять файлы как можно быстрее. Проверь, что скачал последнюю версию и что игра поддерживается.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Как связаться с нами?<span class="plus">+</span></summary>
+          <div class="answer">Discord или Telegram — на странице <a href="contact.html">Связь</a>. Там же можно написать о баге, попросить обновление или предложить игру, которую стоит добавить.</div>
+        </details>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <span class="brand">Soft<span style="color:#ff2b3b">Hub</span></span>
+        <span>© 2026 — все права защищены</span>
+      </div>
+      <div class="footer-links">
+        <a href="contact.html">Связь</a>
+        <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank">YouTube</a>
+      </div>
     </div>
+  </footer>
 
-    <p class="note">
-      Внешний ресурс. SoftHub не отвечает за содержимое ссылки.<br>
-      <a href="index.html">← Вернуться на главную</a>
-    </p>
-
-  </div>
-</main>
-
-<footer>
-  <div class="footer-inner">Soft<span style="color:#ff2b3b;font-weight:900">Hub</span> · © 2026</div>
-</footer>
+</div>
 
 <script>
+  var TURNSTILE_SITE_KEY = "0x4AAAAAAAFCNcXDCBCWC76O";
+
+  function showSite() {
+    document.getElementById('bot-gate').classList.add('hidden');
+    document.getElementById('site').style.display = 'block';
+  }
+
+  function onTurnstileSuccess(token) {
+    try {
+      localStorage.setItem('softhub_human', '1');
+      localStorage.setItem('softhub_human_ts', Date.now().toString());
+    } catch (e) {}
+    showSite();
+  }
+
+  function onTurnstileError(code) {
+    console.warn('Turnstile error:', code);
+    showSite();
+  }
+
   (function () {
-    var params = new URLSearchParams(window.location.search);
-    var url = params.get('u') || '';
-    var name = params.get('n') || 'Ссылка на скачивание';
-
-    var nameEl = document.getElementById('cheat-name');
-    var goBtn = document.getElementById('go-btn');
-
-    if (!url) {
-      nameEl.textContent = 'Ссылка не указана';
-      goBtn.style.opacity = '0.4';
-      goBtn.style.pointerEvents = 'none';
-      return;
-    }
-
-    nameEl.textContent = name;
-    goBtn.href = url;
+    try {
+      var ts = parseInt(localStorage.getItem('softhub_human_ts') || '0', 10);
+      var age = Date.now() - ts;
+      if (localStorage.getItem('softhub_human') === '1' && age < 24 * 60 * 60 * 1000) {
+        showSite();
+      }
+    } catch (e) {}
   })();
+
+  window.addEventListener('load', function () {
+    if (document.getElementById('site').style.display === 'block') return;
+    if (typeof turnstile === 'undefined') { onTurnstileError('script_not_loaded'); return; }
+    turnstile.render('#turnstile-slot', {
+      sitekey: TURNSTILE_SITE_KEY,
+      theme: 'dark',
+      callback: onTurnstileSuccess,
+      'error-callback': onTurnstileError,
+    });
+  });
 </script>
 
 </body>
