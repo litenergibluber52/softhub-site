@@ -264,7 +264,6 @@
       <div class="container">
         <div class="section-head">
           <h2>Все игры</h2>
-          <input class="search-box" id="search" type="text" placeholder="Поиск игры...">
         </div>
 
         <div class="games-grid" id="grid">
@@ -403,20 +402,7 @@
       'error-callback': onTurnstileError,
     });
   });
-
-  // ПОИСК ПО ИГРАМ
-  var search = document.getElementById('search');
-  var grid = document.getElementById('grid');
-  if (search && grid) {
-    search.addEventListener('input', function () {
-      var q = this.value.toLowerCase().trim();
-      var cards = grid.querySelectorAll('.game-card');
-      for (var i = 0; i < cards.length; i++) {
-        var title = (cards[i].getAttribute('data-title') || '').toLowerCase();
-        cards[i].style.display = (q === '' || title.indexOf(q) !== -1) ? '' : 'none';
-      }
-    });
-  }
+ 
 </script>
 
 </body>
