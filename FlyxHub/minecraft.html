@@ -233,7 +233,8 @@
       var url  = this.getAttribute('data-url') || '';
       var name = this.getAttribute('data-name') || 'Чит';
       var img  = this.getAttribute('data-image') || '';
-      var redirect = 'redirect.html?u=' + encodeURIComponent(url) + '&n=' + encodeURIComponent(name);
+      var here = location.pathname.split('/').pop() || 'index.html';
+      var redirect = 'redirect.html?u=' + encodeURIComponent(url) + '&n=' + encodeURIComponent(name) + '&b=' + encodeURIComponent(here);
       if (img) redirect += '&i=' + encodeURIComponent(img);
       window.location.href = redirect;
     });
