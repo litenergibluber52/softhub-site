@@ -138,6 +138,7 @@
     var url  = params.get('u') || '';
     var name = params.get('n') || 'Ссылка на скачивание';
     var img  = params.get('i') || '';
+    var back = params.get('b') || 'index.html';
 
     var nameEl = document.getElementById('cheat-name');
     var goBtn  = document.getElementById('go-btn');
@@ -192,6 +193,12 @@
 
     nameEl.textContent = name;
     goBtn.href = url;
+     // кнопка "Вернуться на главную" в .note — ведёт туда, откуда пришли
+    var backLink = document.querySelector('.note a[href="index.html"]');
+    if (backLink) backLink.href = back;
+    // и кнопка сверху (Go back) если понадобится
+    var backTop = document.querySelector('.back-link');
+    if (backTop) backTop.href = back;
   })();
 </script>
 
