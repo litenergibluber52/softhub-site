@@ -228,9 +228,13 @@
   document.querySelectorAll('.cheat-card').forEach(function (card) {
     card.addEventListener('click', function (e) {
       e.preventDefault();
-      var url = this.getAttribute('data-url') || '';
+      var url  = this.getAttribute('data-url') || '';
       var name = this.getAttribute('data-name') || 'Чит';
-      window.location.href = 'redirect.html?u=' + encodeURIComponent(url) + '&n=' + encodeURIComponent(name);
+      var img  = this.getAttribute('data-image') || '';
+      var here = location.pathname.split('/').pop() || 'index.html';
+      var redirect = 'redirect.html?u=' + encodeURIComponent(url) + '&n=' + encodeURIComponent(name) + '&b=' + encodeURIComponent(here);
+      if (img) redirect += '&i=' + encodeURIComponent(img);
+      window.location.href = redirect;
     });
   });
 </script>
