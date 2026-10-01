@@ -276,12 +276,14 @@
         <span class="brand">Soft<span style="color:#ff2b3b">Hub</span></span>
         <span>© 2026 — все права защищены</span>
       </div>
-      <div class="footer-links">
-        <a href="contact.html">Связь</a>
-        <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank">YouTube</a>
-      </div>
+    <div class="footer-links">
+      <a href="contact.html">Связь</a>
+      <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank">YouTube</a>
+      <a href="#" id="play-song">🎵 Послушать крутую песню</a>
+    </div>
     </div>
   </footer>
+ <audio id="bg-song" src="COOLSONG1.mp3" preload="none"></audio>
 
 </div>
 
@@ -326,6 +328,31 @@
       'error-callback': onTurnstileError,
     });
   });
+   (function () {
+    var btn   = document.getElementById('play-song');
+    var audio = document.getElementById('bg-song');
+    if (!btn || !audio) return;
+
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (audio.paused) {
+        audio.play().then(function () {
+          btn.textContent = '⏸ Остановить песню';
+        }).catch(function (err) {
+          console.warn('не запустилось:', err);
+          btn.textContent = '⚠ Файл не найден';
+        });
+      } else {
+        audio.pause();
+        audio.currentTime = 0;
+        btn.textContent = '🎵 Послушать крутую песню';
+      }
+    });
+
+    audio.addEventListener('ended', function () {
+      btn.textContent = '🎵 Послушать крутую песню';
+    });
+  })();
 </script>
 
 </body>
