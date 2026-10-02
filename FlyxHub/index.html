@@ -164,40 +164,27 @@
   .game-card {
     background: linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%);
     border: 1px solid rgba(255,43,59,0.35);
-    border-radius: 24px;
+    border-radius: 20px;
     overflow: hidden;
     cursor: pointer; color: inherit;
     display: flex; flex-direction: column;
     position: relative;
-    isolation: isolate;
-    transform: translateZ(0);
-    background-clip: padding-box;
-    -webkit-background-clip: padding-box;
-    transition: transform .6s cubic-bezier(0.16, 1, 0.3, 1),
-                border-color .55s ease,
-                box-shadow .55s ease;
-  }
-  .game-card::after {
-    content: ""; position: absolute; inset: 0; border-radius: 24px;
-    pointer-events: none;
-    background: radial-gradient(circle at 50% 0%, rgba(255,43,59,0.10), transparent 60%);
-    opacity: 0; transition: opacity .55s ease;
+    transition: transform .45s ease,
+                border-color .4s ease,
+                box-shadow .4s ease;
   }
   .game-card:hover {
     transform: translateY(-4px);
     border-color: rgba(255,43,59,0.85);
     box-shadow:
-      0 24px 55px -22px rgba(255,43,59,0.5),
-      0 0 0 1px rgba(255,43,59,0.18) inset,
-      0 0 25px rgba(255,43,59,0.14);
+      0 22px 50px -22px rgba(255,43,59,0.5),
+      0 0 0 1px rgba(255,43,59,0.15) inset;
   }
-  .game-card:hover::after { opacity: 1; }
 
   .game-cover {
     display: block; width: 100%; height: 170px;
     background-size: cover; background-position: center; background-repeat: no-repeat;
-    transition: filter .5s ease;
-    will-change: filter;
+    transition: filter .4s ease;
   }
   .game-card:hover .game-cover {
     filter: brightness(1.08) saturate(1.08);
@@ -206,13 +193,11 @@
   .game-body {
     padding: 20px 22px 22px;
     display: flex; flex-direction: column; gap: 8px; flex: 1;
-    position: relative; z-index: 1;
-    background: linear-gradient(180deg, rgba(20,20,32,0.4) 0%, rgba(14,14,20,1) 100%);
   }
   .game-title {
     font-size: 18px; font-weight: 800; letter-spacing: -0.4px;
     color: var(--text);
-    transition: color .35s ease;
+    transition: color .3s ease;
   }
   .game-card:hover .game-title { color: var(--red); }
   .game-desc {
@@ -221,7 +206,7 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    transition: color .35s ease;
+    transition: color .3s ease;
   }
   .game-card:hover .game-desc { color: #a5a5b5; }
 
@@ -461,7 +446,7 @@
     </div>
   </footer>
 
-  <audio id="bg-song" src="COOLSONG1.mp3" preload="auto" crossorigin="anonymous"></audio>
+  <audio id="bg-song" src="COOLSONG1.mp3" preload="auto"></audio>
 
 </div>
 
@@ -472,48 +457,67 @@
     var audio = document.getElementById('bg-song');
     if (!btn || !audio) return;
 
-    var defaultLabel = '🎵 Послушать крутую песню';
+    var LBL_IDLE  = '🎵 Послушать крутую песню';
+    var LBL_LOAD  = '⏳ Загружаю...';
+    var LBL_PLAY  = '⏸ Остановить песню';
+    var LBL_ERR   = '⚠ Файл не найден';
+
+    audio.addEventListener('loadeddata', function () {
+      console.log('[audio] файл загружен, длительность:', audio.duration);
+    });
+    audio.addEventListener('error', function (e) {
+      console.error('[audio] ошибка загрузки файла:', audio.error, e);
+    });
 
     btn.addEventListener('click', function (e) {
       e.preventDefault();
+      console.log('[audio] клик. paused =', audio.paused, 'readyState =', audio.readyState);
 
-      if (audio.paused) {
-        btn.textContent = '⏳ Загружаю...';
-
-        var startPlayback = function () {
-          var p = audio.play();
-          if (p && typeof p.then === 'function') {
-            p.then(function () {
-              btn.textContent = '⏸ Остановить песню';
-            }).catch(function (err) {
-              console.warn('play failed:', err);
-              btn.textContent = '⚠ Не удалось запустить';
-              setTimeout(function () { btn.textContent = defaultLabel; }, 2500);
-            });
-          } else {
-            btn.textContent = '⏸ Остановить песню';
-          }
-        };
-
-        if (audio.readyState >= 2) {
-          startPlayback();
-        } else {
-          audio.addEventListener('canplay', startPlayback, { once: true });
-          audio.addEventListener('error', function () {
-            btn.textContent = '⚠ Файл не найден';
-            setTimeout(function () { btn.textContent = defaultLabel; }, 2500);
-          }, { once: true });
-          audio.load();
-        }
-      } else {
+      if (!audio.paused) {
         audio.pause();
         audio.currentTime = 0;
-        btn.textContent = defaultLabel;
+        btn.textContent = LBL_IDLE;
+        return;
+      }
+
+      btn.textContent = LBL_LOAD;
+
+      var playNow = function () {
+        var p = audio.play();
+        if (p && p.then) {
+          p.then(function () {
+            btn.textContent = LBL_PLAY;
+            console.log('[audio] играет');
+          }).catch(function (err) {
+            console.error('[audio] play() отклонён:', err);
+            btn.textContent = LBL_ERR;
+            setTimeout(function () { btn.textContent = LBL_IDLE; }, 3000);
+          });
+        } else {
+          btn.textContent = LBL_PLAY;
+        }
+      };
+
+      if (audio.readyState >= 2) {
+        playNow();
+      } else {
+        var onReady = function () {
+          audio.removeEventListener('canplay', onReady);
+          playNow();
+        };
+        audio.addEventListener('canplay', onReady);
+        var onErr = function () {
+          audio.removeEventListener('error', onErr);
+          btn.textContent = LBL_ERR;
+          setTimeout(function () { btn.textContent = LBL_IDLE; }, 3000);
+        };
+        audio.addEventListener('error', onErr);
+        audio.load();
       }
     });
 
     audio.addEventListener('ended', function () {
-      btn.textContent = defaultLabel;
+      btn.textContent = LBL_IDLE;
     });
   })();
 </script>
