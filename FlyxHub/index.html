@@ -82,20 +82,10 @@
 
 -- promt by @mopscode
   section { padding: 0 20px; }
-  .container { max-width: 100%; margin: 0 auto; padding: 0 20px; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
   .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; gap: 16px; flex-wrap: wrap; }
   .section-head h2 { font-size: clamp(22px, 3.5vw, 30px); font-weight: 900; letter-spacing: -0.6px; }
-
--- promt by @mopscode
-  .games-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding-bottom: 70px;
-  }
 
 -- promt by @mopscode
   .game-card {
@@ -107,11 +97,6 @@
     border-color: rgba(255,43,59,0.5);
     transform: translateY(-4px);
     box-shadow: 0 16px 40px -16px rgba(255,43,59,0.45);
-  }
-  .game-cover {
-    display: block; width: 100%; height: 160px;
-    background-size: cover; background-position: center; background-repeat: no-repeat;
-    border-bottom: 1px solid var(--border);
   }
   .game-body { padding: 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
   .game-title { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
@@ -145,11 +130,11 @@
   .faq-item .answer a:hover { border-bottom-style: solid; }
 
 -- promt by @mopscode
-  footer { border-top: 1px solid var(--border); padding: 28px 20px; }
-  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+  footer { border-top: 1px solid var(--border); padding: 40px 20px; margin-top: 40px; }
+  .footer-inner { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
   .footer-left { font-size: 13px; color: var(--text-dimmer); display: flex; align-items: center; gap: 10px; }
-  .footer-left .brand { font-weight: 900; }
-  .footer-links { display: flex; gap: 22px; font-size: 13px; color: var(--text-dim); }
+  .footer-left .brand { font-weight: 900; font-size: 16px; }
+  .footer-links { display: flex; gap: 24px; font-size: 13.5px; color: var(--text-dim); align-items: center; flex-wrap: wrap; }
   .footer-links a:hover { color: var(--red); transition: color .18s; }
 </style>
 </head>
@@ -191,10 +176,10 @@
           <h2>Все игры</h2>
         </div>
 
-        <div class="games-grid" id="grid">
+        <div class="games-grid" id="grid" style="display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:16px; padding-bottom:70px;">
 
           <a href="minecraft.html" class="game-card">
-            <div class="game-cover" style="background-image:url('mc-cheats.png');"></div>
+            <div class="game-cover" style="display:block; width:100%; height:150px; background-image:url('mc-cheats.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
             <div class="game-body">
               <div class="game-title">Minecraft Cheats</div>
               <div class="game-desc">Minecraft — это приключенческая игра-песочница, у которой нет сюжета и ограничений в пространстве.</div>
@@ -202,7 +187,7 @@
           </a>
 
           <a href="minecraft-visuals.html" class="game-card">
-            <div class="game-cover" style="background-image:url('mc-visuals.png');"></div>
+            <div class="game-cover" style="display:block; width:100%; height:150px; background-image:url('mc-visuals.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
             <div class="game-body">
               <div class="game-title">Minecraft Visuals</div>
               <div class="game-desc">Визуальные моды, шейдеры и текстур-паки для Minecraft — графика, освещение, детализация мира.</div>
@@ -210,7 +195,7 @@
           </a>
 
           <a href="roblox.html" class="game-card">
-            <div class="game-cover" style="background-image:url('roblox.png');"></div>
+            <div class="game-cover" style="display:block; width:100%; height:150px; background-image:url('roblox.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
             <div class="game-body">
               <div class="game-title">Roblox</div>
               <div class="game-desc">Мультиплеерная метавселенная с мини-играми и собственной студией — тысячи игр от сообщества.</div>
