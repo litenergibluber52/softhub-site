@@ -15,6 +15,7 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
+<link rel="preload" as="image" href="bg-hero.png">
 <link rel="icon" href="favicon.png" type="image/png">
 
 <style>
@@ -70,14 +71,18 @@
   .head-icons a:hover { color: var(--red); transform: scale(1.1); }
   .head-icons svg { width: 20px; height: 20px; }
 
--- promt by @mopscode
   .hero {
     position: relative; padding: 90px 24px 80px; overflow: hidden;
-    background: var(--bg);
+    background-image: url('bg-hero.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
   }
   .hero::before {
     content: ""; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,43,59,0.18), transparent 70%);
+    background:
+      radial-gradient(ellipse 70% 55% at 50% 0%, rgba(255,43,59,0.14), transparent 70%),
+      linear-gradient(180deg, rgba(6,6,10,0.35) 0%, rgba(6,6,10,0.7) 100%);
     pointer-events: none;
   }
   .hero-inner { position: relative; max-width: 800px; margin: 0 auto; text-align: center; z-index: 1; }
@@ -139,7 +144,6 @@
     background: rgba(255,43,59,0.06);
   }
 
--- promt by @mopscode
   section { padding: 0 24px; }
   .container { max-width: 1180px; margin: 0 auto; }
 
@@ -153,7 +157,6 @@
     display: inline-block;
   }
 
--- promt by @mopscode
   .game-card {
     background: linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%);
     border: 1px solid rgba(255,43,59,0.35);
@@ -203,7 +206,6 @@
   }
   .game-card:hover .game-desc { color: #a5a5b5; }
 
--- promt by @mopscode
   .faq-section { padding: 20px 24px 100px; }
   .faq-head { text-align: center; margin-bottom: 40px; }
   .faq-head .tag-label {
@@ -269,7 +271,6 @@
   .faq-item .answer a { color: var(--red); border-bottom: 1px dashed rgba(255,43,59,0.4); }
   .faq-item .answer a:hover { border-bottom-style: solid; }
 
--- promt by @mopscode
   footer {
     border-top: 1px solid rgba(30,30,42,0.8);
     padding: 56px 24px 48px;
@@ -481,26 +482,3 @@
           btn.textContent = LBL_PLAY;
         }
       };
-
-      if (audio.readyState >= 2) {
-        playNow();
-      } else {
-        audio.addEventListener('canplay', playNow, { once: true });
-        audio.addEventListener('error', function () {
-          btn.textContent = LBL_ERR;
-          setTimeout(function () { btn.textContent = LBL_IDLE; }, 3000);
-        }, { once: true });
-        audio.load();
-      }
-    });
-
-    audio.addEventListener('ended', function () {
-      btn.textContent = LBL_IDLE;
-    });
-  })();
-</script>
-
-<script defer src="/_vercel/insights/script.js"></script>
-
-</body>
-</html>
