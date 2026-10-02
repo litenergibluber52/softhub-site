@@ -103,7 +103,9 @@
     gap: 20px;
     padding-bottom: 70px;
   }
-  @media (max-width: 1050px) {
+@media (max-width: 1050px) {
+  .games-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+}
     .games-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
   }
 
@@ -187,84 +189,43 @@
       </div>
     </section>
 
-    <section id="games">
+       <section id="games">
       <div class="container">
         <div class="section-head">
           <h2>Все игры</h2>
         </div>
-        <a href="minecraft.html" class="game-card">
-          <div class="game-cover" style="display:block; width:100%; height:200px; background-image:url('mc-cheats.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
-          <div class="game-body">
-            <div class="game-title">Minecraft Cheats</div>
-            <div class="game-desc">Minecraft — это приключенческая игра-песочница, у которой нет сюжета и ограничений в пространстве.</div>
-          </div>
-        </a>
 
-        <a href="minecraft-visuals.html" class="game-card">
-          <div class="game-cover" style="display:block; width:100%; height:200px; background-image:url('mc-visuals.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
-          <div class="game-body">
-            <div class="game-title">Minecraft Visuals</div>
-            <div class="game-desc">Визуальные моды, шейдеры и текстур-паки для Minecraft — графика, освещение, детализация мира.</div>
-          </div>
-        </a>
+        <div class="games-grid" id="grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; max-width:1400px; margin:0 auto; padding-bottom:70px;">
 
-        <a href="roblox.html" class="game-card">
-          <div class="game-cover" style="display:block; width:100%; height:200px; background-image:url('roblox.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
-          <div class="game-body">
-            <div class="game-title">Roblox</div>
-            <div class="game-desc">Мультиплеерная метавселенная с мини-играми и собственной студией — тысячи игр от сообщества.</div>
-          </div>
-        </a>
+          <a href="minecraft.html" class="game-card">
+            <div class="game-cover" style="display:block; width:100%; height:200px; background-image:url('mc-cheats.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
+            <div class="game-body">
+              <div class="game-title">Minecraft Cheats</div>
+              <div class="game-desc">Minecraft — это приключенческая игра-песочница, у которой нет сюжета и ограничений в пространстве.</div>
+            </div>
+          </a>
+
+          <a href="minecraft-visuals.html" class="game-card">
+            <div class="game-cover" style="display:block; width:100%; height:200px; background-image:url('mc-visuals.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
+            <div class="game-body">
+              <div class="game-title">Minecraft Visuals</div>
+              <div class="game-desc">Визуальные моды, шейдеры и текстур-паки для Minecraft — графика, освещение, детализация мира.</div>
+            </div>
+          </a>
+
+          <a href="roblox.html" class="game-card">
+            <div class="game-cover" style="display:block; width:100%; height:200px; background-image:url('roblox.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
+            <div class="game-body">
+              <div class="game-title">Roblox</div>
+              <div class="game-desc">Мультиплеерная метавселенная с мини-играми и собственной студией — тысячи игр от сообщества.</div>
+            </div>
+          </a>
 
         </div>
       </div>
     </section>
 
-    <section class="faq-section" id="faq">
-      <div class="faq-head">
-        <div class="tag-label">/ FAQ</div>
-        <h2>Частые вопросы</h2>
-      </div>
-
-      <div class="faq-list">
-
-        <details class="faq-item">
-          <summary>Что такое FlyxHub?<span class="plus">+</span></summary>
-          <div class="answer">FluxHub — это платформа, где собраны читы и скрипты для популярных игр: Minecraft, Roblox и других. Все файлы проверены и обновляются, чтобы работать на актуальных версиях игр.</div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Это безопасно? Могут ли забанить?<span class="plus">+</span></summary>
-          <div class="answer">Любой чит — это риск. Мы стараемся делать всё, чтобы обход античитов работал, но 100% гарантии никто дать не может. Рекомендуем использовать на тестовых аккаунтах и не заходить с основного.</div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Как скачать и установить чит?<span class="plus">+</span></summary>
-          <div class="answer">Выбираешь игру, заходишь на страницу, кликаешь на карточку чита, смотришь короткую рекламу для поддержки проекта и получаешь ссылку на скачивание.</div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Почему есть реклама?<span class="plus">+</span></summary>
-          <div class="answer">Хостинг, домен, файлы, время — всё это чего-то стоит. Реклама — единственный способ для нас держать проект на плаву. Платных подписок и скрытых платежей нет.</div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Бесплатно ли это?<span class="plus">+</span></summary>
-          <div class="answer">Да, весь контент на сайте бесплатный. Платить ничего не нужно — только просмотреть короткую рекламу перед скачиванием.</div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Читы не работают, что делать?<span class="plus">+</span></summary>
-          <div class="answer">Скорее всего игра обновилась и античит изменился. Мы стараемся обновлять файлы как можно быстрее. Проверь, что скачал последнюю версию и что игра поддерживается.</div>
-        </details>
-
-        <details class="faq-item">
-          <summary>Как связаться с нами?<span class="plus">+</span></summary>
-          <div class="answer">Discord или Telegram — на странице <a href="contact.html">Связь</a>. Там же можно написать о баге, попросить обновление или предложить игру, которую стоит добавить.</div>
-        </details>
-
-      </div>
-    </section>
+ 
 
   </main>
 
