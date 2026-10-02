@@ -101,8 +101,14 @@
   .game-card { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: all .22s ease; cursor: pointer; display: flex; flex-direction: column; color: inherit; }
   .game-card:hover { border-color: rgba(255,43,59,0.5); transform: translateY(-4px); box-shadow: 0 16px 40px -16px rgba(255,43,59,0.45); }
 -- promt by @mopscode
-   .game-cover { aspect-ratio: 21 / 9; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
-  .game-title { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
+  .game-cover {
+    height: 380px;
+    position: relative;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }  .game-title { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
   .game-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .game-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; gap: 10px; }
   .tag { background: var(--panel-2); color: var(--text-dim); font-size: 11.5px; font-weight: 600; padding: 5px 10px; border-radius: 7px; border: 1px solid var(--border); }
