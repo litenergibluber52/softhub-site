@@ -98,14 +98,13 @@
  
   .games-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 320px);
+    justify-content: center;
     gap: 20px;
     padding-bottom: 70px;
-    max-width: 1000px;
-    margin: 0 auto;
   }
-  @media (min-width: 700px) {
-    .games-grid { grid-template-columns: repeat(3, 1fr); }
+  @media (max-width: 1050px) {
+    .games-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
   }
 
   .game-card { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: all .22s ease; cursor: pointer; display: flex; flex-direction: column; color: inherit; }
