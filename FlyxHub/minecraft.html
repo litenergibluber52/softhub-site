@@ -108,6 +108,7 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
     padding-bottom: 90px;
+    align-items: start;
   }
   @media (max-width: 720px) {
     .cheat-grid { grid-template-columns: 1fr; }
@@ -139,6 +140,7 @@
     overflow: hidden;
     background: var(--panel-3);
     border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
   }
   .cheat-thumb img {
     width: 100%;
@@ -149,6 +151,13 @@
   }
   .cheat-card:hover .cheat-thumb img {
     filter: brightness(1.08) saturate(1.08);
+  }
+  .cheat-thumb--empty {
+    background: var(--panel-3);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%235a5a68'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15v-2h2v2h-2zm1.07-3.75l-.07.05v.7h-2v-1.2l1.07-1.13c.62-.63 1.04-1.05 1.04-1.67 0-.7-.62-1.2-1.5-1.2-.86 0-1.4.53-1.5 1.4l-1.98-.2c.15-1.9 1.66-3.1 3.48-3.1 1.9 0 3.5 1.13 3.5 3.1 0 1.4-1.05 2.1-2.04 3.05z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 42px 42px;
   }
 
   .cheat-body {
@@ -172,7 +181,7 @@
   .cheat-card:hover .cheat-desc { color: #a5a5b5; }
   .cheat-foot {
     display: flex; align-items: center; justify-content: space-between;
-    margin-top: 8px;
+    margin-top: auto; padding-top: 8px;
   }
   .cheat-tag {
     font-size: 11px; font-weight: 700; letter-spacing: 0.6px;
@@ -381,16 +390,14 @@
               </div>
             </div>
           </a>
-         
-         <a href="redirect.html" class="cheat-card"
-             data-url="https://link-target.net/9802332/j2DLiQC70lGz"
+
+          <a href="redirect.html" class="cheat-card"
+             data-url="https://link-target.net/9802332/32DLiQC70lGz"
              data-name="Sistem"
              data-image="s1.png">
             <div class="cheat-body">
               <div class="cheat-title">Sistem</div>
-              <div class="cheat-desc">SistemDlc Crack полностью работает. 1. распакую всю папку из архива в любое удобное место 2. запусти Minecraft Fabrick 1.21.4 или 1.21.11 3. открой лоадер и подьтверди запрос  прав администратора 4. Выбери свою игру в небольшом окне и нажми «Запустить».
-   Процессы отсортированы по расходу ОЗУ. Кнопка «Обновить» перечитывает список.
-   Процесс не выбирается автоматически, даже если он один. </div>
+              <div class="cheat-desc">SistemDic Crack полностью работает. 1. распакуй всю папку из архива в любое удобное место 2. запусти Minecraft Fabric 1.21.4 или 1.21.11 3. открой лоадер и...</div>
               <div class="cheat-foot">
                 <span class="cheat-tag">Download</span>
                 <span class="cheat-arrow">→</span>
@@ -398,8 +405,8 @@
             </div>
           </a>
 
-           <a href="redirect.html" class="cheat-card"
-             data-url="https://link-hub.net/9802332/R1K9MzL6M8sf"
+          <a href="redirect.html" class="cheat-card"
+             data-url="https://link-hub.net/9802332/R1K9MzL6M8sF"
              data-name="Poze"
              data-image="r2.png">
             <div class="cheat-body">
@@ -411,21 +418,21 @@
               </div>
             </div>
           </a>
-         
-           <a href="redirect.html" class="cheat-card"
+
+          <a href="redirect.html" class="cheat-card"
              data-url="https://direct-link.net/9802332/E2RIZRZAphZk"
-             data-name="MaMaSik"
+             data-name="Mamasik"
              data-image="d3.png">
             <div class="cheat-body">
               <div class="cheat-title">Mamasik</div>
-              <div class="cheat-desc">Mamasik кряк полнстью работает. Моды для запуска и сам кряк закинуть в мод и ставите 26.2 фабрик.</div>
+              <div class="cheat-desc">Mamasik кряк полностью работает. Моды для запуска и сам кряк закинуть в мод и ставите 26.2 фабрик</div>
               <div class="cheat-foot">
                 <span class="cheat-tag">Download</span>
                 <span class="cheat-arrow">→</span>
               </div>
             </div>
           </a>
-         
+
         </div>
       </div>
     </section>
@@ -449,17 +456,26 @@
 // promt by @mopscode
   document.querySelectorAll('.cheat-card').forEach(function (card) {
     var imgSrc = card.getAttribute('data-image') || '';
+
+    // превью сверху всегда — если картинки нет или битая, ставим заглушку
+    var wrap = document.createElement('div');
+    wrap.className = 'cheat-thumb';
+
     if (imgSrc) {
-      var wrap = document.createElement('div');
-      wrap.className = 'cheat-thumb';
       var im = document.createElement('img');
       im.src = imgSrc;
       im.alt = '';
       im.loading = 'lazy';
-      im.onerror = function () { wrap.remove(); };
+      im.onerror = function () {
+        wrap.classList.add('cheat-thumb--empty');
+        im.remove();
+      };
       wrap.appendChild(im);
-      card.insertBefore(wrap, card.firstChild);
+    } else {
+      wrap.classList.add('cheat-thumb--empty');
     }
+
+    card.insertBefore(wrap, card.firstChild);
 
     card.addEventListener('click', function (e) {
       e.preventDefault();
