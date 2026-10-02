@@ -72,7 +72,7 @@
 
 -- promt by @mopscode
   .page-hero {
-    position: relative; padding: 60px 24px 40px; overflow: hidden;
+    position: relative; padding: 60px 24px 56px; overflow: hidden;
     background: var(--bg);
   }
   .page-hero::before {
@@ -84,13 +84,9 @@
   .back-link {
     display: inline-flex; align-items: center; gap: 8px;
     font-size: 13.5px; color: var(--text-dim);
-    margin-bottom: 22px; transition: color .25s ease;
+    margin-bottom: 14px; transition: color .25s ease;
   }
   .back-link:hover { color: var(--red); }
-  .page-head .tag-label {
-    color: var(--red); font-size: 12.5px; font-weight: 700;
-    letter-spacing: 2.5px; text-transform: uppercase; margin-bottom: 10px;
-  }
   .page-head h1 {
     font-size: clamp(28px, 5vw, 46px); font-weight: 900;
     letter-spacing: -1.4px; margin-bottom: 14px;
@@ -138,7 +134,7 @@
 
   .cheat-thumb {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 21 / 9;
     overflow: hidden;
     background: var(--panel-3);
     border-bottom: 1px solid var(--border);
@@ -252,7 +248,6 @@
       <div class="page-hero-inner">
         <a href="index.html" class="back-link">← Назад на главную</a>
         <div class="page-head">
-          <div class="tag-label">/ Minecraft Visuals</div>
           <h1>Minecraft Visuals</h1>
           <p>Визуальные моды, шейдеры и текстур-паки для Minecraft. Клик по карточке — откроется страница с ссылкой на скачивание.</p>
         </div>
@@ -365,7 +360,6 @@
 <script>
 // promt by @mopscode
   document.querySelectorAll('.cheat-card').forEach(function (card) {
-    // превью-картинка сверху, если указан data-image
     var imgSrc = card.getAttribute('data-image') || '';
     if (imgSrc) {
       var wrap = document.createElement('div');
