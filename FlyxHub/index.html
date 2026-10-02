@@ -15,7 +15,6 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="preload" as="image" href="bg-hero.png">
 <link rel="icon" href="favicon.png" type="image/png">
 
 <style>
@@ -74,14 +73,11 @@
 -- promt by @mopscode
   .hero {
     position: relative; padding: 90px 24px 80px; overflow: hidden;
-    background-image: url('bg-hero.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: var(--bg);
   }
   .hero::before {
     content: ""; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255,43,59,0.10), transparent 70%);
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,43,59,0.18), transparent 70%);
     pointer-events: none;
   }
   .hero-inner { position: relative; max-width: 800px; margin: 0 auto; text-align: center; z-index: 1; }
