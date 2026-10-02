@@ -201,6 +201,7 @@
       var redirect = 'redirect.html?u=' + encodeURIComponent(url) + '&n=' + encodeURIComponent(name) + '&b=' + encodeURIComponent(here);
       if (img) redirect += '&i=' + encodeURIComponent(img);
       window.location.href = redirect;
+     if (window.va) window.va('event', { name: 'card_click', data: { card: name } });
     });
   });
 </script>
