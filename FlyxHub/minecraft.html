@@ -70,7 +70,26 @@
   .cheat-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; color: var(--red); }
   .cheat-arrow { color: var(--text-dimmer); font-size: 18px; transition: color .2s, transform .2s; }
   .cheat-card:hover .cheat-arrow { color: var(--red); transform: translateX(3px); }
-
+  .cheat-thumb {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: 10px;
+    overflow: hidden;
+    background: var(--panel-2);
+    border: 1px solid var(--border);
+    margin-bottom: 6px;
+  }
+  .cheat-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .3s ease;
+  }
+  .cheat-card:hover .cheat-thumb img {
+    transform: scale(1.03);
+  }
+ 
   footer { border-top: 1px solid var(--border); padding: 26px 20px; }
   .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   .footer-left { font-size: 13px; color: var(--text-dimmer); display: flex; align-items: center; gap: 10px; }
@@ -248,6 +267,20 @@
   // При клике на карточку — переход на redirect.html с параметрами:
   //   u = url, n = name, i = image (опционально)
   document.querySelectorAll('.cheat-card').forEach(function (card) {
+    // превью-картинка сверху, если указан data-image
+    var imgSrc = card.getAttribute('data-image') || '';
+    if (imgSrc) {
+      var wrap = document.createElement('div');
+      wrap.className = 'cheat-thumb';
+      var im = document.createElement('img');
+      im.src = imgSrc;
+      im.alt = '';
+      im.loading = 'lazy';
+      im.onerror = function () { wrap.remove(); };
+      wrap.appendChild(im);
+      card.insertBefore(wrap, card.firstChild);
+    }
+
     card.addEventListener('click', function (e) {
       e.preventDefault();
       var url  = this.getAttribute('data-url') || '';
@@ -257,7 +290,6 @@
       var redirect = 'redirect.html?u=' + encodeURIComponent(url) + '&n=' + encodeURIComponent(name) + '&b=' + encodeURIComponent(here);
       if (img) redirect += '&i=' + encodeURIComponent(img);
       window.location.href = redirect;
-     if (window.va) window.va('event', { name: 'card_click', data: { card: name } });
     });
   });
 </script>
