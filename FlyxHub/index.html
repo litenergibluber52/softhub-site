@@ -1,20 +1,22 @@
-<!-- FlyxHub — cheats landing + Turnstile bot gate -->
+<!-- FlyxHub — cheats landing -->
 <!-- promt by @mopscode -->
 <!DOCTYPE html>
 <html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlyxHub — читы для популярных игр</title>
+
+<meta name="description" content="Сайт с лучшими читами на твои любимые игры">
 <meta property="og:title" content="FlyxHub — читы для популярных игр">
 <meta property="og:description" content="Топовые читы для Minecraft, Roblox и других игр. Бесплатно, проверено, обновляется.">
 <meta property="og:image" content="https://flyxhub.vercel.app/preview.png">
 <meta property="og:url" content="https://flyxhub.vercel.app/">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
-<head>
- <meta name="description" content="Сайт с лучшими читами на твои любимые игры">
+
 <link rel="preload" as="image" href="bg-hero.png">
 <link rel="icon" href="favicon.png" type="image/png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlyxHub — читы для популярных игр</title>
 
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
@@ -32,18 +34,7 @@
   }
   a { color: inherit; text-decoration: none; }
 
-  #bot-gate {
-    position: fixed; inset: 0; background: #050506; z-index: 9999;
-    display: flex; align-items: center; justify-content: center; padding: 20px;
-  }
-  #bot-gate.hidden { display: none; }
-  .gate-box { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; padding: 36px 28px; max-width: 380px; width: 100%; text-align: center; }
-  .gate-icon { width: 54px; height: 54px; margin: 0 auto 18px; background: var(--red); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; color: #000; }
-  .gate-box h2 { font-size: 20px; font-weight: 900; margin-bottom: 8px; letter-spacing: -0.3px; }
-  .gate-box p { font-size: 13.5px; color: var(--text-dim); margin-bottom: 24px; }
-  #turnstile-slot { display: flex; justify-content: center; min-height: 65px; margin-bottom: 16px; }
-  .gate-note { font-size: 11px; color: var(--text-dimmer); margin-top: 8px; }
-
+-- promt by @mopscode
   header { position: sticky; top: 0; z-index: 100; background: rgba(5, 5, 6, 0.85); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid var(--border); }
   .head-inner { max-width: 1200px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; gap: 16px; }
   .logo {
@@ -63,6 +54,7 @@
   .head-icons a:hover { color: var(--text); transition: color .18s; }
   .head-icons svg { width: 20px; height: 20px; }
 
+-- promt by @mopscode
   .hero {
     position: relative; padding: 70px 20px 60px; overflow: hidden;
     background-image: url('bg-hero.png');
@@ -90,36 +82,44 @@
   .btn-ghost { background: transparent; color: var(--text); border: 1px solid var(--border-hi); }
   .btn-ghost:hover { border-color: var(--red); color: var(--red); transform: translateY(-1px); }
 
+-- promt by @mopscode
   section { padding: 0 20px; }
   .container { max-width: 100%; margin: 0 auto; padding: 0 20px; }
 
   .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; gap: 16px; flex-wrap: wrap; }
   .section-head h2 { font-size: clamp(22px, 3.5vw, 30px); font-weight: 900; letter-spacing: -0.6px; }
- 
+
+-- promt by @mopscode
   .games-grid {
     display: grid;
-    grid-template-columns: repeat(3, 320px);
-    justify-content: center;
-    gap: 20px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    max-width: 1200px;
+    margin: 0 auto;
     padding-bottom: 70px;
   }
-@media (max-width: 1050px) {
-  .games-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
-}
-    .games-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+  @media (max-width: 900px) {
+    .games-grid { grid-template-columns: 1fr; max-width: 420px; }
   }
 
-  .game-card { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: all .22s ease; cursor: pointer; display: flex; flex-direction: column; color: inherit; }
-  .game-card:hover { border-color: rgba(255,43,59,0.5); transform: translateY(-4px); box-shadow: 0 16px 40px -16px rgba(255,43,59,0.45); }
 -- promt by @mopscode
+  .game-card {
+    background: var(--panel); border: 1px solid var(--border); border-radius: 18px;
+    overflow: hidden; transition: all .22s ease; cursor: pointer;
+    display: flex; flex-direction: column; color: inherit;
+  }
+  .game-card:hover {
+    border-color: rgba(255,43,59,0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 16px 40px -16px rgba(255,43,59,0.45);
+  }
   .game-cover {
-    height: 180px;
-    position: relative;
-    overflow: hidden;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }  .game-title { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
+    display: block; width: 100%; height: 180px;
+    background-size: cover; background-position: center; background-repeat: no-repeat;
+    border-bottom: 1px solid var(--border);
+  }
+  .game-body { padding: 16px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+  .game-title { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
   .game-desc {
     font-size: 13px;
     color: var(--text-dim);
@@ -128,9 +128,9 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-  }  .game-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; gap: 10px; }
-  .tag { background: var(--panel-2); color: var(--text-dim); font-size: 11.5px; font-weight: 600; padding: 5px 10px; border-radius: 7px; border: 1px solid var(--border); }
+  }
 
+-- promt by @mopscode
   .faq-section { padding: 0 20px 80px; }
   .faq-head { text-align: center; margin-bottom: 30px; }
   .faq-head .tag-label { color: var(--red); font-size: 13px; font-weight: 700; letter-spacing: 2px; margin-bottom: 10px; text-transform: uppercase; }
@@ -149,6 +149,7 @@
   .faq-item .answer a { color: var(--red); border-bottom: 1px dashed rgba(255,43,59,0.4); }
   .faq-item .answer a:hover { border-bottom-style: solid; }
 
+-- promt by @mopscode
   footer { border-top: 1px solid var(--border); padding: 28px 20px; }
   .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
   .footer-left { font-size: 13px; color: var(--text-dimmer); display: flex; align-items: center; gap: 10px; }
@@ -158,11 +159,11 @@
 </style>
 </head>
 <body>
-<div id="site" style="display:block;">
+<div id="site">
 
   <header>
     <div class="head-inner">
-    <a href="index.html" class="logo"><span class="soft">Flyx</span><span class="hub">Hub</span></a>
+      <a href="index.html" class="logo"><span class="soft">Flyx</span><span class="hub">Hub</span></a>
       <nav class="head-nav">
         <a href="contact.html">Связь</a>
         <a href="#faq">FAQ</a>
@@ -189,16 +190,16 @@
       </div>
     </section>
 
-       <section id="games">
+    <section id="games">
       <div class="container">
         <div class="section-head">
           <h2>Все игры</h2>
         </div>
 
-        <div class="games-grid" id="grid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; max-width:1400px; margin:0 auto; padding-bottom:70px;">
+        <div class="games-grid" id="grid">
 
           <a href="minecraft.html" class="game-card">
-            <div class="game-cover" style="display:block; width:100%; height:200px; background-image:url('mc-cheats.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
+            <div class="game-cover" style="background-image:url('mc-cheats.png');"></div>
             <div class="game-body">
               <div class="game-title">Minecraft Cheats</div>
               <div class="game-desc">Minecraft — это приключенческая игра-песочница, у которой нет сюжета и ограничений в пространстве.</div>
@@ -206,7 +207,7 @@
           </a>
 
           <a href="minecraft-visuals.html" class="game-card">
-            <div class="game-cover" style="display:block; width:100%; height:200px; background-image:url('mc-visuals.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
+            <div class="game-cover" style="background-image:url('mc-visuals.png');"></div>
             <div class="game-body">
               <div class="game-title">Minecraft Visuals</div>
               <div class="game-desc">Визуальные моды, шейдеры и текстур-паки для Minecraft — графика, освещение, детализация мира.</div>
@@ -214,7 +215,7 @@
           </a>
 
           <a href="roblox.html" class="game-card">
-            <div class="game-cover" style="display:block; width:100%; height:200px; background-image:url('roblox.png'); background-size:cover; background-position:center; background-repeat:no-repeat; border-bottom:1px solid #1c1c1f;"></div>
+            <div class="game-cover" style="background-image:url('roblox.png');"></div>
             <div class="game-body">
               <div class="game-title">Roblox</div>
               <div class="game-desc">Мультиплеерная метавселенная с мини-играми и собственной студией — тысячи игр от сообщества.</div>
@@ -225,28 +226,74 @@
       </div>
     </section>
 
- 
+    <section class="faq-section" id="faq">
+      <div class="faq-head">
+        <div class="tag-label">/ FAQ</div>
+        <h2>Частые вопросы</h2>
+      </div>
+
+      <div class="faq-list">
+
+        <details class="faq-item">
+          <summary>Что такое FlyxHub?<span class="plus">+</span></summary>
+          <div class="answer">FlyxHub — это платформа, где собраны читы и скрипты для популярных игр: Minecraft, Roblox и других. Все файлы проверены и обновляются, чтобы работать на актуальных версиях игр.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Это безопасно? Могут ли забанить?<span class="plus">+</span></summary>
+          <div class="answer">Любой чит — это риск. Мы стараемся делать всё, чтобы обход античитов работал, но 100% гарантии никто дать не может. Рекомендуем использовать на тестовых аккаунтах и не заходить с основного.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Как скачать и установить чит?<span class="plus">+</span></summary>
+          <div class="answer">Выбираешь игру, заходишь на страницу, кликаешь на карточку чита, смотришь короткую рекламу для поддержки проекта и получаешь ссылку на скачивание.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Почему есть реклама?<span class="plus">+</span></summary>
+          <div class="answer">Хостинг, домен, файлы, время — всё это чего-то стоит. Реклама — единственный способ для нас держать проект на плаву. Платных подписок и скрытых платежей нет.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Бесплатно ли это?<span class="plus">+</span></summary>
+          <div class="answer">Да, весь контент на сайте бесплатный. Платить ничего не нужно — только просмотреть короткую рекламу перед скачиванием.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Читы не работают, что делать?<span class="plus">+</span></summary>
+          <div class="answer">Скорее всего игра обновилась и античит изменился. Мы стараемся обновлять файлы как можно быстрее. Проверь, что скачал последнюю версию и что игра поддерживается.</div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Как связаться с нами?<span class="plus">+</span></summary>
+          <div class="answer">Discord или Telegram — на странице <a href="contact.html">Связь</a>. Там же можно написать о баге, попросить обновление или предложить игру, которую стоит добавить.</div>
+        </details>
+
+      </div>
+    </section>
 
   </main>
 
   <footer>
     <div class="footer-inner">
       <div class="footer-left">
-        <span class="brand">Soft<span style="color:#ff2b3b">Hub</span></span>
+        <span class="brand">Flyx<span style="color:#ff2b3b">Hub</span></span>
       </div>
-    <div class="footer-links">
-      <a href="contact.html">Связь</a>
-      <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank">YouTube</a>
-      <a href="#" id="play-song">🎵 Послушать крутую песню</a>
-    </div>
+      <div class="footer-links">
+        <a href="contact.html">Связь</a>
+        <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank">YouTube</a>
+        <a href="#" id="play-song">🎵 Послушать крутую песню</a>
+      </div>
     </div>
   </footer>
- <audio id="bg-song" src="COOLSONG1.mp3" preload="none"></audio>
+
+  <audio id="bg-song" src="COOLSONG1.mp3" preload="none"></audio>
 
 </div>
 
 <script>
-   (function () {
+-- promt by @mopscode
+  (function () {
     var btn   = document.getElementById('play-song');
     var audio = document.getElementById('bg-song');
     if (!btn || !audio) return;
@@ -273,7 +320,7 @@
   })();
 </script>
 
- <script defer src="/_vercel/insights/script.js"></script>
- 
+<script defer src="/_vercel/insights/script.js"></script>
+
 </body>
 </html>
