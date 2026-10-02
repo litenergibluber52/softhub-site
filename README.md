@@ -1,4 +1,4 @@
-# SoftHub
+# NikoHub
 
 ## Что это
 
