@@ -27,7 +27,6 @@
     --border: #1e1e2a; --border-hi: #2a2a3a;
     --red: #ff2b3b; --red-soft: #ff4150;
     --text: #f4f4f8; --text-dim: #8c8c9a; --text-dimmer: #5a5a68;
-    --shadow-red: 0 20px 50px -20px rgba(255,43,59,0.5);
   }
   html { scroll-behavior: smooth; }
   html, body {
@@ -124,7 +123,7 @@
     display: inline-block; padding: 15px 32px; border-radius: 14px;
     font-weight: 700; font-size: 15px; cursor: pointer; border: none;
     white-space: nowrap; position: relative; overflow: hidden;
-    transition: all .3s cubic-bezier(0.22, 1, 0.36, 1);
+    transition: all .35s cubic-bezier(0.16, 1, 0.3, 1);
   }
   .btn-red {
     background: linear-gradient(135deg, var(--red) 0%, #d92335 100%);
@@ -172,36 +171,36 @@
     position: relative;
     isolation: isolate;
     transform: translateZ(0);
-    transition: transform .5s cubic-bezier(0.22, 1, 0.36, 1),
-                border-color .45s ease,
-                box-shadow .45s ease;
+    background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    transition: transform .6s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color .55s ease,
+                box-shadow .55s ease;
   }
   .game-card::after {
     content: ""; position: absolute; inset: 0; border-radius: 24px;
     pointer-events: none;
     background: radial-gradient(circle at 50% 0%, rgba(255,43,59,0.10), transparent 60%);
-    opacity: 0; transition: opacity .45s ease;
+    opacity: 0; transition: opacity .55s ease;
   }
   .game-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(255,43,59,0.9);
+    transform: translateY(-4px);
+    border-color: rgba(255,43,59,0.85);
     box-shadow:
-      0 30px 60px -25px rgba(255,43,59,0.55),
-      0 0 0 1px rgba(255,43,59,0.2) inset,
-      0 0 30px rgba(255,43,59,0.18);
+      0 24px 55px -22px rgba(255,43,59,0.5),
+      0 0 0 1px rgba(255,43,59,0.18) inset,
+      0 0 25px rgba(255,43,59,0.14);
   }
   .game-card:hover::after { opacity: 1; }
 
   .game-cover {
     display: block; width: 100%; height: 170px;
     background-size: cover; background-position: center; background-repeat: no-repeat;
-    border-radius: 24px 24px 0 0;
-    transition: transform .7s cubic-bezier(0.22, 1, 0.36, 1), filter .5s ease;
-    will-change: transform;
+    transition: filter .5s ease;
+    will-change: filter;
   }
   .game-card:hover .game-cover {
-    transform: scale(1.05);
-    filter: brightness(1.1) saturate(1.08);
+    filter: brightness(1.08) saturate(1.08);
   }
 
   .game-body {
@@ -209,12 +208,11 @@
     display: flex; flex-direction: column; gap: 8px; flex: 1;
     position: relative; z-index: 1;
     background: linear-gradient(180deg, rgba(20,20,32,0.4) 0%, rgba(14,14,20,1) 100%);
-    border-radius: 0 0 24px 24px;
   }
   .game-title {
     font-size: 18px; font-weight: 800; letter-spacing: -0.4px;
     color: var(--text);
-    transition: color .3s ease;
+    transition: color .35s ease;
   }
   .game-card:hover .game-title { color: var(--red); }
   .game-desc {
@@ -223,7 +221,7 @@
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
     overflow: hidden;
-    transition: color .3s ease;
+    transition: color .35s ease;
   }
   .game-card:hover .game-desc { color: #a5a5b5; }
 
@@ -269,7 +267,7 @@
     background: var(--panel-3); border: 1px solid var(--border-hi);
     display: flex; align-items: center; justify-content: center;
     font-size: 16px; font-weight: 800; color: var(--red);
-    transition: transform .35s cubic-bezier(0.22, 1, 0.36, 1),
+    transition: transform .35s cubic-bezier(0.16, 1, 0.3, 1),
                 background .3s ease, color .3s ease, border-color .3s ease;
     line-height: 1;
   }
@@ -322,7 +320,7 @@
   }
   .footer-links a {
     position: relative; transition: color .25s ease;
-    padding: 4px 0;
+    padding: 4px 0; cursor: pointer;
   }
   .footer-links a::after {
     content: ""; position: absolute; left: 0; bottom: 0;
@@ -458,12 +456,12 @@
       <div class="footer-links">
         <a href="contact.html">Связь</a>
         <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank">YouTube</a>
-        <a href="#" id="play-song">🎵 Послушать крутую песню</a>
+        <a id="play-song">🎵 Послушать крутую песню</a>
       </div>
     </div>
   </footer>
 
-  <audio id="bg-song" src="COOLSONG1.mp3" preload="none"></audio>
+  <audio id="bg-song" src="COOLSONG1.mp3" preload="auto" crossorigin="anonymous"></audio>
 
 </div>
 
@@ -474,24 +472,48 @@
     var audio = document.getElementById('bg-song');
     if (!btn || !audio) return;
 
+    var defaultLabel = '🎵 Послушать крутую песню';
+
     btn.addEventListener('click', function (e) {
       e.preventDefault();
+
       if (audio.paused) {
-        audio.play().then(function () {
-          btn.textContent = '⏸ Остановить песню';
-        }).catch(function (err) {
-          console.warn('не запустилось:', err);
-          btn.textContent = '⚠ Файл не найден';
-        });
+        btn.textContent = '⏳ Загружаю...';
+
+        var startPlayback = function () {
+          var p = audio.play();
+          if (p && typeof p.then === 'function') {
+            p.then(function () {
+              btn.textContent = '⏸ Остановить песню';
+            }).catch(function (err) {
+              console.warn('play failed:', err);
+              btn.textContent = '⚠ Не удалось запустить';
+              setTimeout(function () { btn.textContent = defaultLabel; }, 2500);
+            });
+          } else {
+            btn.textContent = '⏸ Остановить песню';
+          }
+        };
+
+        if (audio.readyState >= 2) {
+          startPlayback();
+        } else {
+          audio.addEventListener('canplay', startPlayback, { once: true });
+          audio.addEventListener('error', function () {
+            btn.textContent = '⚠ Файл не найден';
+            setTimeout(function () { btn.textContent = defaultLabel; }, 2500);
+          }, { once: true });
+          audio.load();
+        }
       } else {
         audio.pause();
         audio.currentTime = 0;
-        btn.textContent = '🎵 Послушать крутую песню';
+        btn.textContent = defaultLabel;
       }
     });
 
     audio.addEventListener('ended', function () {
-      btn.textContent = '🎵 Послушать крутую песню';
+      btn.textContent = defaultLabel;
     });
   })();
 </script>
