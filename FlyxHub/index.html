@@ -22,10 +22,10 @@
 -- promt by @mopscode
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
   :root {
-    --bg: #06060a; --bg-2: #0a0a12;
+    --bg: #06060a;
     --panel: #0e0e14; --panel-2: #141420; --panel-3: #1a1a26;
     --border: #1e1e2a; --border-hi: #2a2a3a;
-    --red: #ff2b3b; --red-soft: #ff4150;
+    --red: #ff2b3b;
     --text: #f4f4f8; --text-dim: #8c8c9a; --text-dimmer: #5a5a68;
   }
   html { scroll-behavior: smooth; }
@@ -37,7 +37,6 @@
   }
   a { color: inherit; text-decoration: none; }
 
--- promt by @mopscode
   header {
     position: sticky; top: 0; z-index: 100;
     background: rgba(6,6,10,0.72);
@@ -72,7 +71,6 @@
   .head-icons a:hover { color: var(--red); transform: scale(1.1); }
   .head-icons svg { width: 20px; height: 20px; }
 
--- promt by @mopscode
   .hero {
     position: relative; padding: 90px 24px 80px; overflow: hidden;
     background-image: url('bg-hero.png');
@@ -146,7 +144,6 @@
     background: rgba(255,43,59,0.06);
   }
 
--- promt by @mopscode
   section { padding: 0 24px; }
   .container { max-width: 1180px; margin: 0 auto; }
 
@@ -160,7 +157,6 @@
     display: inline-block;
   }
 
--- promt by @mopscode
   .game-card {
     background: linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%);
     border: 1px solid rgba(255,43,59,0.35);
@@ -210,7 +206,6 @@
   }
   .game-card:hover .game-desc { color: #a5a5b5; }
 
--- promt by @mopscode
   .faq-section { padding: 20px 24px 100px; }
   .faq-head { text-align: center; margin-bottom: 40px; }
   .faq-head .tag-label {
@@ -276,7 +271,6 @@
   .faq-item .answer a { color: var(--red); border-bottom: 1px dashed rgba(255,43,59,0.4); }
   .faq-item .answer a:hover { border-bottom-style: solid; }
 
--- promt by @mopscode
   footer {
     border-top: 1px solid rgba(30,30,42,0.8);
     padding: 56px 24px 48px;
@@ -451,27 +445,19 @@
 </div>
 
 <script>
--- promt by @mopscode
+// promt by @mopscode
   (function () {
     var btn   = document.getElementById('play-song');
     var audio = document.getElementById('bg-song');
     if (!btn || !audio) return;
 
-    var LBL_IDLE  = '🎵 Послушать крутую песню';
-    var LBL_LOAD  = '⏳ Загружаю...';
-    var LBL_PLAY  = '⏸ Остановить песню';
-    var LBL_ERR   = '⚠ Файл не найден';
-
-    audio.addEventListener('loadeddata', function () {
-      console.log('[audio] файл загружен, длительность:', audio.duration);
-    });
-    audio.addEventListener('error', function (e) {
-      console.error('[audio] ошибка загрузки файла:', audio.error, e);
-    });
+    var LBL_IDLE = '🎵 Послушать крутую песню';
+    var LBL_LOAD = '⏳ Загружаю...';
+    var LBL_PLAY = '⏸ Остановить песню';
+    var LBL_ERR  = '⚠ Файл не найден';
 
     btn.addEventListener('click', function (e) {
       e.preventDefault();
-      console.log('[audio] клик. paused =', audio.paused, 'readyState =', audio.readyState);
 
       if (!audio.paused) {
         audio.pause();
@@ -487,9 +473,8 @@
         if (p && p.then) {
           p.then(function () {
             btn.textContent = LBL_PLAY;
-            console.log('[audio] играет');
           }).catch(function (err) {
-            console.error('[audio] play() отклонён:', err);
+            console.error('[audio] play() failed:', err);
             btn.textContent = LBL_ERR;
             setTimeout(function () { btn.textContent = LBL_IDLE; }, 3000);
           });
@@ -501,17 +486,11 @@
       if (audio.readyState >= 2) {
         playNow();
       } else {
-        var onReady = function () {
-          audio.removeEventListener('canplay', onReady);
-          playNow();
-        };
-        audio.addEventListener('canplay', onReady);
-        var onErr = function () {
-          audio.removeEventListener('error', onErr);
+        audio.addEventListener('canplay', playNow, { once: true });
+        audio.addEventListener('error', function () {
           btn.textContent = LBL_ERR;
           setTimeout(function () { btn.textContent = LBL_IDLE; }, 3000);
-        };
-        audio.addEventListener('error', onErr);
+        }, { once: true });
         audio.load();
       }
     });
