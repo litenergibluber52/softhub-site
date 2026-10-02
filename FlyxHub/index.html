@@ -15,11 +15,9 @@
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="preload" as="image" href="bg-hero.png">
 <link rel="icon" href="favicon.png" type="image/png">
 
 <style>
--- promt by @mopscode
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-font-smoothing: antialiased; }
   :root {
     --bg: #06060a;
@@ -73,16 +71,11 @@
 
   .hero {
     position: relative; padding: 90px 24px 80px; overflow: hidden;
-    background-image: url('bg-hero.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background: var(--bg);
   }
   .hero::before {
     content: ""; position: absolute; inset: 0;
-    background:
-      radial-gradient(ellipse 70% 55% at 50% 0%, rgba(255,43,59,0.14), transparent 70%),
-      linear-gradient(180deg, rgba(6,6,10,0.35) 0%, rgba(6,6,10,0.7) 100%);
+    background: radial-gradient(ellipse 90% 75% at 50% 0%, rgba(255,43,59,0.22), rgba(255,43,59,0.06) 40%, transparent 75%);
     pointer-events: none;
   }
   .hero-inner { position: relative; max-width: 800px; margin: 0 auto; text-align: center; z-index: 1; }
@@ -449,15 +442,27 @@
   (function () {
     var btn   = document.getElementById('play-song');
     var audio = document.getElementById('bg-song');
-    if (!btn || !audio) return;
+
+    if (!btn || !audio) {
+      console.warn('[audio] кнопка или audio-тег не найдены');
+      return;
+    }
 
     var LBL_IDLE = '🎵 Послушать крутую песню';
     var LBL_LOAD = '⏳ Загружаю...';
     var LBL_PLAY = '⏸ Остановить песню';
-    var LBL_ERR  = '⚠ Файл не найден';
+    var LBL_ERR  = '⚠ Не удалось';
+
+    console.log('[audio] готов, src =', audio.src);
+
+    // если файл не загрузился — сразу об этом узнаем
+    audio.addEventListener('error', function () {
+      console.error('[audio] ошибка загрузки файла:', audio.error);
+    });
 
     btn.addEventListener('click', function (e) {
       e.preventDefault();
+      console.log('[audio] клик. paused=' + audio.paused + ', readyState=' + audio.readyState + ', networkState=' + audio.networkState);
 
       if (!audio.paused) {
         audio.pause();
@@ -470,11 +475,12 @@
 
       var playNow = function () {
         var p = audio.play();
-        if (p && p.then) {
+        if (p && typeof p.then === 'function') {
           p.then(function () {
             btn.textContent = LBL_PLAY;
+            console.log('[audio] играет');
           }).catch(function (err) {
-            console.error('[audio] play() failed:', err);
+            console.error('[audio] play() отклонён:', err.name, err.message);
             btn.textContent = LBL_ERR;
             setTimeout(function () { btn.textContent = LBL_IDLE; }, 3000);
           });
@@ -482,3 +488,27 @@
           btn.textContent = LBL_PLAY;
         }
       };
+
+      if (audio.readyState >= 2) {
+        playNow();
+      } else {
+        console.log('[audio] ждём загрузки...');
+        audio.addEventListener('canplay', playNow, { once: true });
+        audio.addEventListener('error', function () {
+          btn.textContent = LBL_ERR;
+          setTimeout(function () { btn.textContent = LBL_IDLE; }, 3000);
+        }, { once: true });
+        audio.load();
+      }
+    });
+
+    audio.addEventListener('ended', function () {
+      btn.textContent = LBL_IDLE;
+    });
+  })();
+</script>
+
+<script defer src="/_vercel/insights/script.js"></script>
+
+</body>
+</html>
