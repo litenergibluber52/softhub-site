@@ -96,15 +96,12 @@
   .section-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; gap: 16px; flex-wrap: wrap; }
   .section-head h2 { font-size: clamp(22px, 3.5vw, 30px); font-weight: 900; letter-spacing: -0.6px; }
  
-  .games-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding-bottom: 70px; }
-  @media (min-width: 640px) { .games-grid { grid-template-columns: 1fr 1fr; } }
-  @media (min-width: 1000px) { .games-grid { grid-template-columns: repeat(3, 1fr); } }
+ .games-grid { display: grid; grid-template-columns: 1fr; gap: 20px; padding-bottom: 70px; }
 
   .game-card { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; transition: all .22s ease; cursor: pointer; display: flex; flex-direction: column; color: inherit; }
   .game-card:hover { border-color: rgba(255,43,59,0.5); transform: translateY(-4px); box-shadow: 0 16px 40px -16px rgba(255,43,59,0.45); }
 -- promt by @mopscode
-  .game-cover { aspect-ratio: 16 / 9; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
-  .game-cover .logo-text { font-size: clamp(28px, 5vw, 44px); font-weight: 900; letter-spacing: 2px; color: rgba(255,255,255,0.92); text-shadow: 0 2px 22px rgba(0,0,0,0.75); padding: 0 16px; text-align: center; }  .game-body { padding: 18px; display: flex; flex-direction: column; gap: 8px; flex: 1; }
+   .game-cover { aspect-ratio: 21 / 9; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; background-size: cover; background-position: center; }
   .game-title { font-size: 17px; font-weight: 800; letter-spacing: -0.3px; }
   .game-desc { font-size: 13px; color: var(--text-dim); line-height: 1.5; flex: 1; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .game-foot { display: flex; align-items: center; justify-content: space-between; margin-top: 6px; gap: 10px; }
@@ -190,7 +187,6 @@
 <!-- promt by @mopscode -->
           <a href="minecraft.html" class="game-card">
             <div class="game-cover" style="background-image: url('mc-cheats.png');">
-              <span class="logo-text">MINECRAFT</span>
             </div>
             <div class="game-body">
               <div class="game-title">Minecraft Cheats</div>
@@ -203,7 +199,6 @@
 
           <a href="minecraft-visuals.html" class="game-card">
             <div class="game-cover" style="background-image: url('mc-visuals.png');">
-              <span class="logo-text">VISUALS</span>
             </div>
             <div class="game-body">
               <div class="game-title">Minecraft Visuals</div>
@@ -215,7 +210,6 @@
           </a>
           <a href="roblox.html" class="game-card">
             <div class="game-cover" style="background-image: url('roblox.png');">
-              <span class="logo-text">ROBLOX</span>
             </div>
             <div class="game-body">
               <div class="game-title">Roblox</div>
