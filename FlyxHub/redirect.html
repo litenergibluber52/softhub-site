@@ -71,7 +71,6 @@
     flex: 1 0 auto;
     width: 100%;
     position: relative;
-    padding: 200px 20px 200px;
   }
   main::before {
     content: ""; position: absolute; inset: 0;
@@ -80,12 +79,16 @@
     z-index: 0;
   }
 
+  .spacer-top { height: 220px; }
+  .spacer-bottom { height: 220px; }
+
   .page-wrap {
     position: relative;
     z-index: 1;
     width: 100%;
     max-width: 480px;
     margin: 0 auto;
+    padding: 0 20px;
   }
 
   .card {
@@ -261,6 +264,8 @@
   </header>
 
   <main>
+    <div class="spacer-top"></div>
+
     <div class="page-wrap">
       <div class="card">
 
@@ -283,6 +288,8 @@
 
       </div>
     </div>
+
+    <div class="spacer-bottom"></div>
   </main>
 
   <footer>
