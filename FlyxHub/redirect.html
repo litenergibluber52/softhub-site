@@ -74,27 +74,28 @@
     width: 100%;
     min-height: calc(100vh - 200px);
     position: relative;
-    padding: 80px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 160px 20px 180px;
+    text-align: center;
   }
   main::before {
-    content: ""; position: fixed; inset: 0; top: 60px; bottom: 0;
+    content: ""; position: absolute; inset: 0;
     background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,43,59,0.20), rgba(255,43,59,0.06) 40%, transparent 75%);
     pointer-events: none;
     z-index: 0;
   }
 
   .card {
-    position: relative; z-index: 1;
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    text-align: center;
     width: 100%;
     max-width: 480px;
-    margin: 0 auto;
     background: linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%);
     border: 1px solid rgba(255,43,59,0.35);
     border-radius: 20px;
     padding: 40px 32px;
+    vertical-align: middle;
     transition: border-color .4s ease, box-shadow .4s ease;
   }
   .card:hover {
