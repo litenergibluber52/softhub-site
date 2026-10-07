@@ -1,0 +1,243 @@
+<!-- FlyxHub — генератор ников -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Генератор ников — FlyxHub</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<script src="theme.js"></script>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
+  :root {
+    --bg:#06060a; --panel:#0e0e14; --panel-2:#141420; --panel-3:#1a1a26;
+    --border:#1e1e2a; --border-hi:#2a2a3a; --red:#ff2b3b;
+    --text:#f4f4f8; --text-dim:#8c8c9a; --text-dimmer:#5a5a68;
+  }
+  [data-theme="light"] {
+    --bg:#f6f6fa; --panel:#ffffff; --panel-2:#fafafd; --panel-3:#f0f0f5;
+    --border:#e2e2ea; --border-hi:#d4d4de;
+    --text:#0a0a14; --text-dim:#5a5a68; --text-dimmer:#8c8c9a;
+  }
+  html,body { background:var(--bg); color:var(--text);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",system-ui,sans-serif;
+    min-height:100vh; line-height:1.5; overflow-x:hidden; }
+  a { color:inherit; text-decoration:none; }
+
+  header { position:sticky; top:0; z-index:100;
+    background:rgba(6,6,10,0.72); backdrop-filter:blur(20px) saturate(140%);
+    -webkit-backdrop-filter:blur(20px) saturate(140%);
+    border-bottom:1px solid rgba(30,30,42,0.6); }
+  [data-theme="light"] header { background:rgba(246,246,250,0.75); border-bottom-color:rgba(226,226,234,0.8); }
+  .head-inner { max-width:1180px; margin:0 auto; padding:16px 24px;
+    display:flex; align-items:center; justify-content:space-between; gap:16px; }
+  .logo { font-size:22px; font-weight:900; letter-spacing:-0.5px;
+    background:linear-gradient(120deg,#fff 0%,#ff6b78 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent; }
+  [data-theme="light"] .logo { background:linear-gradient(120deg,#0a0a14 0%,#d92335 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .head-nav { display:flex; align-items:center; gap:24px; font-size:14px; color:var(--text-dim); }
+  .head-nav a:hover { color:var(--text); }
+  .head-icons { display:flex; align-items:center; gap:16px; color:var(--text-dim); }
+  .head-icons a { transition:color .25s ease, transform .25s ease; cursor:pointer; }
+  .head-icons a:hover { color:var(--red); transform:scale(1.1); }
+  .head-icons svg { width:20px; height:20px; }
+
+  main { padding:60px 24px 100px; position:relative; }
+  main::before { content:""; position:absolute; inset:0;
+    background:radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,43,59,0.20), rgba(255,43,59,0.06) 40%, transparent 75%);
+    pointer-events:none; }
+
+  .wrap { max-width:640px; margin:0 auto; position:relative; z-index:1; }
+  .page-head { text-align:center; margin-bottom:40px; }
+  .page-head h1 { font-size:clamp(28px,5vw,44px); font-weight:900; letter-spacing:-1.2px;
+    background:linear-gradient(180deg,#fff 0%,#a8a8b8 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; color:transparent; margin-bottom:10px; }
+  [data-theme="light"] .page-head h1 { background:linear-gradient(180deg,#0a0a14 0%,#5a5a68 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .page-head p { color:var(--text-dim); font-size:15px; }
+
+  .card { background:linear-gradient(180deg,var(--panel-2) 0%,var(--panel) 100%);
+    border:1px solid rgba(255,43,59,0.35); border-radius:20px; padding:32px 28px; }
+
+  .nick-out { display:flex; align-items:center; justify-content:center; gap:12px;
+    background:var(--panel-3); border:1px dashed var(--border-hi);
+    border-radius:14px; padding:22px 18px; margin-bottom:22px; min-height:80px; }
+  .nick-text { font-size:26px; font-weight:900; letter-spacing:-0.5px;
+    color:var(--text); text-align:center; word-break:break-all;
+    background:linear-gradient(120deg,#fff 0%,#ff6b78 100%);
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent; }
+  [data-theme="light"] .nick-text { background:linear-gradient(120deg,#0a0a14 0%,#d92335 100%);
+    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  .copy-btn { background:var(--panel-2); border:1px solid var(--border-hi);
+    color:var(--text-dim); padding:8px 12px; border-radius:10px;
+    cursor:pointer; font-size:13px; transition:all .25s ease; flex-shrink:0; }
+  .copy-btn:hover { color:var(--red); border-color:var(--red); }
+
+  .options { display:flex; flex-wrap:wrap; gap:10px; margin-bottom:22px; justify-content:center; }
+  .opt { padding:8px 14px; border-radius:999px; border:1px solid var(--border-hi);
+    background:var(--panel-3); color:var(--text-dim); font-size:13px;
+    cursor:pointer; transition:all .25s ease; user-select:none; }
+  .opt.active { background:linear-gradient(135deg,var(--red) 0%,#d92335 100%);
+    color:#fff; border-color:var(--red); box-shadow:0 8px 20px -8px rgba(255,43,59,0.6); }
+
+  .btn-gen { width:100%; padding:18px; border-radius:14px; border:none; cursor:pointer;
+    background:linear-gradient(135deg,var(--red) 0%,#d92335 100%);
+    color:#fff; font-weight:800; font-size:16px; letter-spacing:0.3px;
+    box-shadow:0 12px 30px -12px rgba(255,43,59,0.7);
+    transition:all .3s cubic-bezier(0.16,1,0.3,1); }
+  .btn-gen:hover { transform:translateY(-2px); box-shadow:0 18px 45px -14px rgba(255,43,59,0.9); }
+  .btn-gen:active { transform:translateY(0); }
+
+  .history { margin-top:30px; }
+  .history h3 { font-size:13px; letter-spacing:1.5px; text-transform:uppercase;
+    color:var(--text-dimmer); margin-bottom:12px; text-align:center; }
+  .hist-list { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
+  .hist-item { padding:6px 12px; border-radius:8px; background:var(--panel-3);
+    border:1px solid var(--border); color:var(--text-dim); font-size:13px;
+    cursor:pointer; transition:all .2s ease; }
+  .hist-item:hover { color:var(--red); border-color:rgba(255,43,59,0.5); }
+
+  footer { border-top:1px solid rgba(30,30,42,0.8); padding:40px 24px;
+    color:var(--text-dimmer); text-align:center; font-size:13px; position:relative; }
+  footer::before { content:""; position:absolute; top:-1px; left:50%; transform:translateX(-50%);
+    width:120px; height:1px; background:linear-gradient(90deg,transparent,var(--red),transparent); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <a href="index.html" class="logo">FlyxHub</a>
+    <nav class="head-nav">
+      <a href="index.html">Главная</a>
+      <a href="nickgen.html">Ники</a>
+      <a href="contact.html">Связь</a>
+    </nav>
+    <div class="head-icons">
+      <a href="#" id="theme-toggle" onclick="event.preventDefault();toggleTheme();">🌙</a>
+      <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank" aria-label="YouTube">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+      </a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <div class="wrap">
+    <div class="page-head">
+      <h1>Генератор ников</h1>
+      <p>Рандомный ник для Minecraft / Roblox. Жми — копируй — играй.</p>
+    </div>
+
+    <div class="card">
+      <div class="nick-out">
+        <span class="nick-text" id="nick">нажми кнопку ↓</span>
+        <button class="copy-btn" id="copy">копи</button>
+      </div>
+
+      <div class="options">
+        <div class="opt active" data-style="cool">cool</div>
+        <div class="opt" data-style="tryhard">tryhard</div>
+        <div class="opt" data-style="funny">мем</div>
+        <div class="opt" data-style="pro">pro</div>
+        <div class="opt" data-style="dark">dark</div>
+      </div>
+
+      <button class="btn-gen" id="gen">🎲 СГЕНЕРИРОВАТЬ</button>
+
+      <div class="history">
+        <h3>последние 6</h3>
+        <div class="hist-list" id="hist"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>© 2026 FlyxHub — генератор ников</footer>
+
+<script>
+(function(){
+  var PREFIX = {
+    cool:    ['Shadow','Void','Frost','Blaze','Ghost','Neon','Dark','Cyber','Storm','Ice','Fire','Lunar','Astral','Cosmic','Phantom'],
+    tryhard: ['xX','iTz','oG','TTV','YT','So','Faze','FaZe','TTV_','iTry'],
+    funny:   ['Puzo','Karapuz','Slonik','Chushok','Jaba','Kotik','Homyak','Bobr','Ulitka','Babuin'],
+    pro:     ['Pro','Master','Legend','Elite','Prime','Alpha','God','King','Boss','Top'],
+    dark:    ['Night','Blood','Skull','Death','Venom','Raven','Hex','Curse','Sin','Void']
+  };
+  var SUFFIX = {
+    cool:    ['Wolf','Knight','Hunter','Blade','Rider','Fang','Claw','Wraith','Spectre','Sniper'],
+    tryhard: ['___','_YT','_TTV','_1v9','_God','_Pro','_X','_XD','_Zz','_007'],
+    funny:   ['228','1337','TV','Puzo','Sosiska','Pryanik','Krendel','Pelmen','Baton','Syrnik'],
+    pro:     ['X','Z','HD','One','Two','Zero','Prime','Ultra','Max','Neo'],
+    dark:    ['666','13','XX','Reaper','Demon','Lord','Slayer','Crow','Void','Abyss']
+  };
+  var DECOR = ['', '_', '.', '-', 'x', 'X'];
+
+  var style = 'cool';
+  var last  = '';
+
+  function rnd(a){ return a[Math.floor(Math.random()*a.length)]; }
+  function randNum(len){ var n=''; for(var i=0;i<len;i++) n+=Math.floor(Math.random()*10); return n; }
+
+  function gen(style){
+    var p = rnd(PREFIX[style]);
+    var s = rnd(SUFFIX[style]);
+    var d = rnd(DECOR);
+    var out;
+    if (style === 'tryhard') {
+      out = p + rnd(['_','']) + rnd(['Pro','God','King','Sniper','']) + d + s;
+    } else if (style === 'funny') {
+      out = p + d + s + (Math.random()<0.5 ? randNum(2) : '');
+    } else {
+      out = p + d + s + (Math.random()<0.35 ? randNum(2) : '');
+    }
+    return out.replace(/([_\-\.])\1+/g,'$1').slice(0,20);
+  }
+
+  var nickEl = document.getElementById('nick');
+  var histEl = document.getElementById('hist');
+  var hist = [];
+
+  function update(){
+    do { last = gen(style); } while (last === nickEl.textContent);
+    nickEl.textContent = last;
+    hist.unshift(last); hist = hist.slice(0,6);
+    histEl.innerHTML = '';
+    hist.forEach(function(n){
+      var d = document.createElement('div');
+      d.className = 'hist-item';
+      d.textContent = n;
+      d.onclick = function(){ nickEl.textContent = n; };
+      histEl.appendChild(d);
+    });
+  }
+
+  document.getElementById('gen').onclick = update;
+
+  document.getElementById('copy').onclick = function(){
+    if (!last) return;
+    navigator.clipboard.writeText(last).then(function(){
+      var b = document.getElementById('copy');
+      b.textContent = '✓ скопи';
+      setTimeout(function(){ b.textContent = 'копи'; }, 1200);
+    });
+  };
+
+  document.querySelectorAll('.opt').forEach(function(o){
+    o.onclick = function(){
+      document.querySelectorAll('.opt').forEach(function(x){ x.classList.remove('active'); });
+      o.classList.add('active');
+      style = o.getAttribute('data-style');
+      update();
+    };
+  });
+
+  update();
+})();
+</script>
+</body>
+</html>
