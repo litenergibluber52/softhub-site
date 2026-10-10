@@ -1,23 +1,17 @@
-<!-- FlyxHub — генератор ников -->
+<!-- NikoHub — генератор ников -->
 <!DOCTYPE html>
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Генератор ников — FlyxHub</title>
+<title>Генератор ников — NikoHub</title>
 <link rel="icon" href="favicon.png" type="image/png">
-<script src="theme.js"></script>
 <style>
   * { margin:0; padding:0; box-sizing:border-box; -webkit-font-smoothing:antialiased; }
   :root {
     --bg:#06060a; --panel:#0e0e14; --panel-2:#141420; --panel-3:#1a1a26;
     --border:#1e1e2a; --border-hi:#2a2a3a; --red:#ff2b3b;
     --text:#f4f4f8; --text-dim:#8c8c9a; --text-dimmer:#5a5a68;
-  }
-  [data-theme="light"] {
-    --bg:#f6f6fa; --panel:#ffffff; --panel-2:#fafafd; --panel-3:#f0f0f5;
-    --border:#e2e2ea; --border-hi:#d4d4de;
-    --text:#0a0a14; --text-dim:#5a5a68; --text-dimmer:#8c8c9a;
   }
   html,body { background:var(--bg); color:var(--text);
     font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Inter",system-ui,sans-serif;
@@ -28,15 +22,13 @@
     background:rgba(6,6,10,0.72); backdrop-filter:blur(20px) saturate(140%);
     -webkit-backdrop-filter:blur(20px) saturate(140%);
     border-bottom:1px solid rgba(30,30,42,0.6); }
-  [data-theme="light"] header { background:rgba(246,246,250,0.75); border-bottom-color:rgba(226,226,234,0.8); }
   .head-inner { max-width:1180px; margin:0 auto; padding:16px 24px;
     display:flex; align-items:center; justify-content:space-between; gap:16px; }
   .logo { font-size:22px; font-weight:900; letter-spacing:-0.5px;
+    display:flex; align-items:center;
     background:linear-gradient(120deg,#fff 0%,#ff6b78 100%);
     -webkit-background-clip:text; background-clip:text;
     -webkit-text-fill-color:transparent; color:transparent; }
-  [data-theme="light"] .logo { background:linear-gradient(120deg,#0a0a14 0%,#d92335 100%);
-    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
   .head-nav { display:flex; align-items:center; gap:24px; font-size:14px; color:var(--text-dim); }
   .head-nav a:hover { color:var(--text); }
   .head-icons { display:flex; align-items:center; gap:16px; color:var(--text-dim); }
@@ -55,8 +47,6 @@
     background:linear-gradient(180deg,#fff 0%,#a8a8b8 100%);
     -webkit-background-clip:text; background-clip:text;
     -webkit-text-fill-color:transparent; color:transparent; margin-bottom:10px; }
-  [data-theme="light"] .page-head h1 { background:linear-gradient(180deg,#0a0a14 0%,#5a5a68 100%);
-    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
   .page-head p { color:var(--text-dim); font-size:15px; }
 
   .card { background:linear-gradient(180deg,var(--panel-2) 0%,var(--panel) 100%);
@@ -70,8 +60,6 @@
     background:linear-gradient(120deg,#fff 0%,#ff6b78 100%);
     -webkit-background-clip:text; background-clip:text;
     -webkit-text-fill-color:transparent; }
-  [data-theme="light"] .nick-text { background:linear-gradient(120deg,#0a0a14 0%,#d92335 100%);
-    -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
   .copy-btn { background:var(--panel-2); border:1px solid var(--border-hi);
     color:var(--text-dim); padding:8px 12px; border-radius:10px;
     cursor:pointer; font-size:13px; transition:all .25s ease; flex-shrink:0; }
@@ -111,14 +99,13 @@
 
 <header>
   <div class="head-inner">
-    <a href="index.html" class="logo">FlyxHub</a>
+    <a href="index.html" class="logo"><span class="soft">Niko</span><span class="hub">Hub</span></a>
     <nav class="head-nav">
       <a href="index.html">Главная</a>
       <a href="nickgen.html">Ники</a>
       <a href="contact.html">Связь</a>
     </nav>
     <div class="head-icons">
-      <a href="#" id="theme-toggle" onclick="event.preventDefault();toggleTheme();">🌙</a>
       <a href="https://youtube.com/@xiwedzec13_37tim" target="_blank" aria-label="YouTube">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
       </a>
@@ -147,7 +134,7 @@
         <div class="opt" data-style="dark">dark</div>
       </div>
 
-      <button class="btn-gen" id="gen">🎲 СГЕНЕРИРОВАТЬ</button>
+      <button class="btn-gen" id="gen">СГЕНЕРИРОВАТЬ</button>
 
       <div class="history">
         <h3>последние 6</h3>
@@ -157,7 +144,7 @@
   </div>
 </main>
 
-<footer>© 2026 FlyxHub — генератор ников</footer>
+<footer>© 2026 NikoHub — генератор ников</footer>
 
 <script>
 (function(){
@@ -222,7 +209,7 @@
     if (!last) return;
     navigator.clipboard.writeText(last).then(function(){
       var b = document.getElementById('copy');
-      b.textContent = '✓ скопи';
+      b.textContent = 'скопировано';
       setTimeout(function(){ b.textContent = 'копи'; }, 1200);
     });
   };
