@@ -38,11 +38,17 @@
   }
   .logo {
     font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
-    display: flex; align-items: center;
+    display: flex; align-items: center; gap: 10px;
     background: linear-gradient(120deg, #ffffff 0%, #6e45e2 100%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent; color: transparent;
     transition: filter .3s ease;
+  }
+  .logo-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    object-fit: cover;
   }
   .logo:hover { filter: drop-shadow(0 0 20px rgba(110, 69, 226, 0.55)); }
   .head-nav { display: flex; align-items: center; gap: 30px; font-size: 14px; color: var(--text-dim); }
@@ -218,7 +224,10 @@
 
   <header>
     <div class="head-inner">
-      <a href="index.html" class="logo"><span class="soft">Niko</span><span class="hub">Hub</span></a>
+      <a href="index.html" class="logo">
+        <img src="niko!.jpg" alt="Logo" class="logo-img">
+        <span class="soft">Niko</span><span class="hub">Hub</span>
+      </a>
       <nav class="head-nav">
         <a href="contact.html">Связь</a>
         <a href="index.html#faq">FAQ</a>
