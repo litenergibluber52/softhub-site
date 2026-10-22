@@ -15,7 +15,7 @@
     --bg: #06060a;
     --panel: #0e0e14; --panel-2: #141420; --panel-3: #1a1a26;
     --border: #1e1e2a; --border-hi: #2a2a3a;
-    --red: #ff2b3b;
+    --red: #8b5cf6;
     --text: #f4f4f8; --text-dim: #8c8c9a; --text-dimmer: #5a5a68;
   }
   html {
@@ -77,7 +77,7 @@
   }
   main::before {
     content: ""; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,43,59,0.20), rgba(255,43,59,0.06) 40%, transparent 75%);
+    background: radial-gradient(ellipse 80% 60% at 50% 0%, rgba(139,92,246,0.20), rgba(139,92,246,0.06) 40%, transparent 75%);
     pointer-events: none;
     z-index: 0;
   }
@@ -90,7 +90,7 @@
     width: 100%;
     max-width: 520px;
     background: linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%);
-    border: 1px solid rgba(255,43,59,0.35);
+    border: 1px solid rgba(139,92,246,0.35);
     border-radius: 20px;
     padding: 48px 34px;
     vertical-align: middle;
@@ -101,8 +101,8 @@
     height: 100%; vertical-align: middle;
   }
   .card:hover {
-    border-color: rgba(255,43,59,0.6);
-    box-shadow: 0 22px 50px -22px rgba(255,43,59,0.35);
+    border-color: rgba(139,92,246,0.6);
+    box-shadow: 0 22px 50px -22px rgba(139,92,246,0.35);
   }
 
   .err-gif-wrap {
@@ -115,8 +115,8 @@
     max-width: 100%;
     border-radius: 16px;
     overflow: hidden;
-    border: 1px solid rgba(255,43,59,0.4);
-    box-shadow: 0 14px 44px -18px rgba(255,43,59,0.55);
+    border: 1px solid rgba(139,92,246,0.4);
+    box-shadow: 0 14px 44px -18px rgba(139,92,246,0.55);
     background: var(--panel-3);
   }
   .err-gif img {
@@ -128,11 +128,11 @@
   .err-code {
     font-size: clamp(72px, 14vw, 120px);
     font-weight: 900; line-height: 1; letter-spacing: -4px;
-    background: linear-gradient(180deg, #ffffff 0%, #ff2b3b 100%);
+    background: linear-gradient(180deg, #ffffff 0%, #8b5cf6 100%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent; color: transparent;
     margin-bottom: 18px;
-    filter: drop-shadow(0 0 30px rgba(255,43,59,0.35));
+    filter: drop-shadow(0 0 30px rgba(139,92,246,0.35));
   }
   .card h1 {
     font-size: 22px; font-weight: 900; letter-spacing: -0.4px;
@@ -156,13 +156,13 @@
     white-space: nowrap;
   }
   .btn-red {
-    background: linear-gradient(135deg, var(--red) 0%, #d92335 100%);
+    background: linear-gradient(135deg, var(--red) 0%, #7c3aed 100%);
     color: #fff;
-    box-shadow: 0 12px 30px -12px rgba(255,43,59,0.7);
+    box-shadow: 0 12px 30px -12px rgba(139,92,246,0.7);
   }
   .btn-red:hover {
     transform: translateY(-2px);
-    box-shadow: 0 18px 45px -14px rgba(255,43,59,0.9);
+    box-shadow: 0 18px 45px -14px rgba(139,92,246,0.9);
     filter: brightness(1.08);
   }
   .btn-ghost {
@@ -172,10 +172,10 @@
     backdrop-filter: blur(10px);
   }
   .btn-ghost:hover {
-    border-color: rgba(255,43,59,0.6);
+    border-color: rgba(139,92,246,0.6);
     color: var(--red);
     transform: translateY(-2px);
-    background: rgba(255,43,59,0.06);
+    background: rgba(139,92,246,0.06);
   }
 
   footer {
