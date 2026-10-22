@@ -23,7 +23,7 @@
     --bg: #06060a;
     --panel: #0e0e14; --panel-2: #141420; --panel-3: #1a1a26;
     --border: #1e1e2a; --border-hi: #2a2a3a;
-    --red: #ff2b3b;
+    --red: #8b5cf6;
     --text: #f4f4f8; --text-dim: #8c8c9a; --text-dimmer: #5a5a68;
   }
   html { scroll-behavior: smooth; }
@@ -75,7 +75,7 @@
   }
   .page-hero::before {
     content: ""; position: absolute; inset: 0;
-    background: radial-gradient(ellipse 90% 75% at 50% 0%, rgba(255,43,59,0.22), rgba(255,43,59,0.06) 40%, transparent 75%);
+    background: radial-gradient(ellipse 90% 75% at 50% 0%, rgba(139,92,246,0.22), rgba(139,92,246,0.06) 40%, transparent 75%);
     pointer-events: none;
   }
   .page-hero-inner { position: relative; max-width: 1180px; margin: 0 auto; z-index: 1; }
@@ -113,7 +113,7 @@
 
   .cheat-card {
     background: linear-gradient(180deg, var(--panel-2) 0%, var(--panel) 100%);
-    border: 1px solid rgba(255,43,59,0.35);
+    border: 1px solid rgba(139,92,246,0.35);
     border-radius: 20px;
     overflow: hidden;
     cursor: pointer; color: inherit;
@@ -125,10 +125,10 @@
   }
   .cheat-card:hover {
     transform: translateY(-4px);
-    border-color: rgba(255,43,59,0.85);
+    border-color: rgba(139,92,246,0.85);
     box-shadow:
-      0 22px 50px -22px rgba(255,43,59,0.5),
-      0 0 0 1px rgba(255,43,59,0.15) inset;
+      0 22px 50px -22px rgba(139,92,246,0.5),
+      0 0 0 1px rgba(139,92,246,0.15) inset;
   }
 
   .cheat-thumb {
