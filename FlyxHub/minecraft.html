@@ -49,12 +49,12 @@
   .logo {
     font-size: 22px; font-weight: 900; letter-spacing: -0.5px;
     display: flex; align-items: center;
-    background: linear-gradient(120deg, #ffffff 0%, #ff6b78 100%);
+    background: linear-gradient(120deg, #ffffff 0%, #6e45e2 100%);
     -webkit-background-clip: text; background-clip: text;
     -webkit-text-fill-color: transparent; color: transparent;
     transition: filter .3s ease;
   }
-  .logo:hover { filter: drop-shadow(0 0 20px rgba(255,43,59,0.55)); }
+  .logo:hover { filter: drop-shadow(0 0 20px rgba(110, 69, 226, 0.55)); }
   .head-nav { display: flex; align-items: center; gap: 30px; font-size: 14px; color: var(--text-dim); }
   .head-nav a { position: relative; transition: color .25s ease; }
   .head-nav a:hover { color: var(--text); }
@@ -212,7 +212,12 @@
     font-size: 13px; color: var(--text-dimmer);
     display: flex; flex-direction: column; gap: 6px;
   }
-  .footer-left .brand { font-weight: 900; font-size: 20px; letter-spacing: -0.5px; }
+  .footer-left .brand { 
+    font-weight: 900; font-size: 20px; letter-spacing: -0.5px; 
+    background: linear-gradient(120deg, #ffffff 0%, #6e45e2 100%);
+    -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; color: transparent;
+  }
   .footer-left .copy { font-size: 12.5px; }
   .footer-links {
     display: flex; gap: 28px; font-size: 14px;
@@ -624,7 +629,7 @@
   <footer>
     <div class="footer-inner">
       <div class="footer-left">
-        <span class="brand">Niko<span style="color:#ff2b3b">Hub</span></span>
+        <span class="brand">NikoHub</span>
         <span class="copy">© 2026 — читы для популярных игр</span>
       </div>
       <div class="footer-links">
