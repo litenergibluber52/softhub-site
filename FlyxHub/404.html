@@ -105,6 +105,26 @@
     box-shadow: 0 22px 50px -22px rgba(255,43,59,0.35);
   }
 
+  .err-gif-wrap {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 24px;
+  }
+  .err-gif {
+    width: 260px;
+    max-width: 100%;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255,43,59,0.4);
+    box-shadow: 0 14px 44px -18px rgba(255,43,59,0.55);
+    background: var(--panel-3);
+  }
+  .err-gif img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
   .err-code {
     font-size: clamp(72px, 14vw, 120px);
     font-weight: 900; line-height: 1; letter-spacing: -4px;
@@ -218,6 +238,13 @@
 
   <main>
     <div class="card">
+      
+      <div class="err-gif-wrap">
+        <div class="err-gif">
+          <img src="404.gif" alt="404" onerror="this.closest('.err-gif-wrap').style.display='none'">
+        </div>
+      </div>
+
       <div class="err-code">404</div>
       <h1>Страница не найдена</h1>
       <p>Такой страницы нет — может, ссылка битая, может, файл удалили. Жми кнопку и возвращайся туда, где всё работает.</p>
